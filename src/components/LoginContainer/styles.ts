@@ -25,7 +25,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     border-radius: 4px;
     box-shadow: 0px 0px 8px ${({ theme }) => theme.modalBg};
     border: 2px solid ${({ theme }) => theme.colors.GRAY[500]};
@@ -48,6 +48,7 @@ export const Container = styled.div`
       padding: 8px;
       width: 266px;
       transition: 0.2s;
+      margin-top: 24px;
       &:hover{
         box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.GREEN[900]};
         background-color: ${({ theme }) => theme.colors.GREEN[900]};

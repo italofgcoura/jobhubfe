@@ -84,13 +84,13 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
 };
 
 const sendPasswordReset = async (email: string) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    // alert("Password reset link sent!");
-  } catch (err) {
-    console.error(err);
-    // alert(err.message);
-  }
+  // try {
+  return await sendPasswordResetEmail(auth, email);
+  // alert("Password reset link sent!");
+  // } catch (err) {
+  //   console.error(err);
+  //   // alert(err.message);
+  // }
 };
 
 const logout = () => {

@@ -42,8 +42,6 @@ function App() {
     [handleToggleTheme, selectedTheme, currentTheme],
   );
 
-  console.log(currentTheme);
-
   return (
     <ThemeContext.Provider value={values}>
       <ThemeProvider theme={currentTheme}>

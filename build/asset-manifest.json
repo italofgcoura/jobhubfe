@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e6c13ad2.css",
+    "main.js": "/static/js/main.71d0df8b.js",
+    "static/js/787.a79f2bf9.chunk.js": "/static/js/787.a79f2bf9.chunk.js",
+    "static/media/noun-seniority-2063262.svg": "/static/media/noun-seniority-2063262.ba44cdff552d8843e71b3a72ed97da0c.svg",
+    "static/media/icons8-google.svg": "/static/media/icons8-google.0e75891f36867519098779c0aa1e7ff2.svg",
+    "index.html": "/index.html",
+    "static/media/attach_money_black_24dp.svg": "/static/media/attach_money_black_24dp.6dc1b1d6072b471b033a90a379c13d00.svg",
+    "static/media/sentiment_dissatisfied_black_24dp.svg": "/static/media/sentiment_dissatisfied_black_24dp.9cad9f6786fb5e4600bd27c30a0db4b8.svg",
+    "static/media/calendar_month_black_24dp.svg": "/static/media/calendar_month_black_24dp.7d1390c6264216e7ceb2614ad94c5ee9.svg",
+    "static/media/done_black_24dp.svg": "/static/media/done_black_24dp.f3a903a7f867dc02965a768e664e887f.svg",
+    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
+    "main.71d0df8b.js.map": "/static/js/main.71d0df8b.js.map",
+    "787.a79f2bf9.chunk.js.map": "/static/js/787.a79f2bf9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.71d0df8b.js"
+  ]
+}

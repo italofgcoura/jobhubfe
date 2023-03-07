@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 
 import { UserContext } from '../../context/user/userContext';
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth/authContext';
 
@@ -69,7 +69,7 @@ const Register = () => {
           handleInputChange={(e) => handleInputChange(e, setUserLogin, userLogin)}
           name={'name'}
           type={'text'}
-          labelName={'Name'}
+          labelName={'Nome'}
           value={userLogin.name}
           size={266}
         />

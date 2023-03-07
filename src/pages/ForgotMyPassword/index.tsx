@@ -8,11 +8,12 @@ import Spinner from '../../components/Spinner';
 
 import handleInputChange from '../../utils/handleInputChange';
 
-import { auth, sendPasswordReset } from '../../firebase';
+import { sendPasswordReset } from '../../firebase';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
+// import { useAuthState } from 'react-firebase-hooks/auth';
 
 import LinkComponent from '../../components/LinkComponent';
+import makeRequest from '../../utils/makeRequest';
 
 const Login = () => {
 
@@ -21,22 +22,41 @@ const Login = () => {
     confirmEmail: ''
   });
 
-  const [User, loading] = useAuthState(auth);
+  const [sendingReset, setSendingReset] = useState(false);
 
-  const disabled = loading ||
+  const [errorResetPassword, setErrorResetPassword] = useState('');
+
+  // const [User, loading] = useAuthState(auth);
+
+  const disabled = sendingReset ||
     !userLoginData.email || !userLoginData.confirmEmail ||
     (userLoginData.email !== userLoginData.confirmEmail);
+
+  const handleSubmitResetPassword = async (event: React.FormEvent<HTMLFormElement>) => {
+
+    event.preventDefault();
+    // setSendingReset(true);
+
+    await makeRequest(sendPasswordReset, setErrorResetPassword, setSendingReset, userLoginData.email);
+
+    // try {
+    //   await sendPasswordReset(userLoginData.email);
+    // } catch (error) {
+    //   console.log(error);
+    // } finally {
+    //   setSendingReset(false);
+    // }
+
+  };
+
+  console.log('disabled', disabled, sendingReset);
 
   return (
 
     <LoginContainer>
 
       <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          sendPasswordReset(userLoginData.email);
-        }}
-      >
+        onSubmit={handleSubmitResetPassword}>
         <h2>Esqueci minha senha</h2>
 
         <InputContainer
@@ -64,7 +84,7 @@ const Login = () => {
         <button type='submit'
           disabled={disabled}
         >Enviar email
-          {loading &&
+          {sendingReset &&
             <Spinner size={10} />
           }
         </button>
@@ -72,6 +92,10 @@ const Login = () => {
         {((userLoginData.email !== '' && userLoginData.confirmEmail !== '') && (
           (userLoginData.email !== userLoginData.confirmEmail))
         ) && <p className='alertMsg'>emails não coincidem</p>}
+
+        {errorResetPassword &&
+          <p className='alertMsg'>Ocorreu um erro ao enviar o email</p>
+        }
 
       </form>
 

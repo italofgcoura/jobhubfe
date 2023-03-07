@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../context/auth/authContext';
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import LoginContainer from '../../components/LoginContainer';
 
