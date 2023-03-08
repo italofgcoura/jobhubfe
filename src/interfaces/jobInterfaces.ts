@@ -1,14 +1,12 @@
 interface IJob {
-  _id: string,
+  id: string,
   companyName: string,
   title: string,
   seniority: string,
-  description: {
-    jobDescription: string,
-    benefits: string,
-    requirements: string
-  },
-  wage: string,
+  description: string,
+  benefits: string,
+  requirements: string,
+  wage: number,
   contact: string,
   startDeadLine: string,
   applied?: boolean,
@@ -37,7 +35,8 @@ interface IJobContext {
   companyJobs: any[],
   loadCompanyRegisteredJobs: () => void,
   loading: boolean,
-  error: boolean
+  error: boolean,
+  reloadJobs: () => void
 }
 
 interface IListJobs {

@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const PagesContainer = styled.div`
+interface iProps {
+  center?: boolean
+}
+
+export const PagesContainer = styled.div<iProps>`
 
   min-height: calc(90vh - 34px);
   background-color: ${({ theme }) => theme.pageBackgroundColor};
@@ -8,5 +12,5 @@ export const PagesContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: ${({ center }) => center ? 'center' : 'flex-start'} ;
 `;

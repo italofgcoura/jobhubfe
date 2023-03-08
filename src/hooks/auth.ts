@@ -103,7 +103,6 @@ export default function useAuth() {
     setIsAuthenticated(false);
 
     localStorage.removeItem('authToken');
-    console.log('handle logout');
     api.defaults.headers.common['authorization'] = undefined;
     setLoading(false);
     logout();

@@ -12,7 +12,7 @@ import {
   createNewUserRequest
 } from '../../requests/user';
 
-import { listCategories } from '../../requests/categorie';
+// import { listCategories } from '../../requests/categorie';
 
 import initialValues from './initialValues';
 
@@ -31,7 +31,7 @@ const UserProvider = ({ children }: IProps) => {
 
   const [loadingHome, setIsLoadingHome] = useState(initialValues.loadingHome);
 
-  const [categories, setCategories] = useState<ICategories>(initialValues.categories);
+  // const [categories, setCategories] = useState<ICategories>(initialValues.categories);
 
   const [loadingUserData, setIsLoadingUserData] = useState(initialValues.loadingUserData);
 
@@ -83,7 +83,7 @@ const UserProvider = ({ children }: IProps) => {
 
     const resUserData: IUserData = await makeRequest(getUserDataRequest, setHomeError, setIsLoadingUserData);
 
-    const categories: ICategories = await makeRequest(listCategories, setHomeError, setIsLoadingUserData);
+    // const categories: ICategories = await makeRequest(listCategories, setHomeError, setIsLoadingUserData);
 
     if (resUserData) {
       if (resUserData.isCompany) {
@@ -92,18 +92,18 @@ const UserProvider = ({ children }: IProps) => {
       if (resUserData.isAdmin) {
         setIsAdmin(true);
       }
-      console.log('resUserDataresUserDataresUserData', resUserData);
+
       setUserData(resUserData);
     }
 
-    if (categories) {
-      setCategories(categories);
-    }
+    // if (categories) {
+    //   setCategories(categories);
+    // }
 
   };
 
   const updateUserData = async (updatedUserData: object) => {
-    console.log('updatedUserData', updatedUserData);
+
     await makeRequest(
       updateUserDataRequest,
       setUpdateUserError,
@@ -112,26 +112,24 @@ const UserProvider = ({ children }: IProps) => {
   };
 
   const createNewUser = async (userLoginData: { name: string, email: string, password: string }) => {
+
     setLoadingCreatingNewUser(true);
-    // const created = await makeRequest(createNewUserRequest, setErrorCreatingNewUser, setLoadingCreatingNewUser, userLoginData);
-
-    // const created = await makeRequest(registerWithEmailAndPassword, setErrorCreatingNewUser, setLoadingCreatingNewUser, userLoginData);
-
 
     const created = await registerWithEmailAndPassword(userLoginData.name, userLoginData.email, userLoginData.password);
-    console.log('created', created);
+
 
     if (created) {
 
-      const createdUserInDataBase = await makeRequest(createNewUserRequest, setErrorCreatingNewUser, setLoadingCreatingNewUser, { ...userLoginData, userId: created.uid });
-
-      console.log('createdUserInDataBase', createdUserInDataBase);
-
+      await makeRequest(createNewUserRequest, setErrorCreatingNewUser, setLoadingCreatingNewUser, { ...userLoginData, userId: created.uid });
 
       const idToken = await created.getIdToken(false);
-      console.log('idToken', idToken);
+
       authenticateUser(idToken, created.refreshToken);
+
+      return;
     }
+
+    setLoadingCreatingNewUser(false);
   };
 
   const resetUser = () => {
@@ -153,7 +151,7 @@ const UserProvider = ({ children }: IProps) => {
     userData,
     loadingUserData,
     updateUserData,
-    categories,
+    // categories,
     updatingUserData,
     isAdmin,
     isCompany,
@@ -172,7 +170,6 @@ const UserProvider = ({ children }: IProps) => {
     userData,
     loadingUserData,
     updateUserData,
-    categories,
     updatingUserData,
     isAdmin,
     isCompany,

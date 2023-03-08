@@ -22,40 +22,41 @@ import { Button } from '../../components/ActionButton/styles';
 const RegisterNewJob = () => {
 
   const { userData } = useContext(UserContext);
-  const { loadJobs } = useContext(JobContext);
+  const { reloadJobs } = useContext(JobContext);
   const [errorRegisterNewJob, setErrorRegisterNewJob] = useState(false);
 
   const [registeringNewJob, setRegisteringNewJob] = useState(false);
+
+  console.log(userData);
 
   const startJobObject = {
     companyName: userData.name,
     title: '',
     seniority: '',
-    description: {
-      jobDescription: '',
-      benefits: '',
-      requirements: ''
-    },
-    wage: '',
-    contact: '',
+    description: '',
+    benefits: '',
+    requirements: '',
+    wage: 0.00,
+    contact: userData.email,
     startDeadLine: '',
-    _id: ''
+    id: ''
   };
 
-  const [newJobData, setNewJobData] = useState<IJob>(startJobObject);
+  const [newJobData, setNewJobData] = useState<IJob>({ ...startJobObject });
 
-  const handleRegisterNewJob = async (event: React.FormEvent<HTMLFormElement>,
-  ) => {
+  const handleRegisterNewJob = async (event: React.FormEvent<HTMLFormElement>) => {
 
+    console.log('newJobDatanewJobDatanewJobData', newJobData);
     event.preventDefault();
 
     await makeRequest(companyRegisteredNewJobRequest, setErrorRegisterNewJob, setRegisteringNewJob, newJobData);
+    console.log('after request');
+    await reloadJobs();
 
-    loadJobs();
-
-    setNewJobData(startJobObject);
+    // setNewJobData(startJobObject);
 
   };
+
 
   if (!userData.name) return <Modal><Spinner size={80} centered /></Modal>;
 
@@ -91,19 +92,19 @@ const RegisterNewJob = () => {
         <div style={{ display: 'flex', gap: '8px' }}>
 
           <InputContainer
-            handleInputChange={(e) => handleInputChange(e, setNewJobData, newJobData)}
+            handleInputChange={(e) => { setNewJobData({ ...newJobData, wage: Number(e.target.value) }); }}
             name={'wage'}
             type={'text'}
             labelName={'Salário'}
-            value={newJobData.wage}
+            value={newJobData.wage || ''}
           />
 
           <InputContainer
-            handleInputChange={(e) => handleInputChange(e, setNewJobData, newJobData)}
+            // handleInputChange={(e) => handleInputChange(e, setNewJobData, newJobData)}
             name={'contact'}
             type={'text'}
             labelName={'Contato'}
-            value={newJobData.contact}
+            value={userData.email}
           />
 
           <InputContainer
@@ -116,34 +117,34 @@ const RegisterNewJob = () => {
         </div>
         <InputContainer
           handleInputChange={(e) => {
-            handleChangeJobDescriptionObject(e, setNewJobData, newJobData);
+            handleInputChange(e, setNewJobData, newJobData);
           }}
-          name={'jobDescription'}
+          name={'description'}
           type={'text'}
           labelName={'Descrição da vaga'}
-          value={newJobData.description.jobDescription}
+          value={newJobData.description}
           isTextArea
         />
 
         <InputContainer
           handleInputChange={(e) => {
-            handleChangeJobDescriptionObject(e, setNewJobData, newJobData);
+            handleInputChange(e, setNewJobData, newJobData);
           }}
           name={'benefits'}
           type={'text'}
           labelName={'Benefícios da vaga'}
-          value={newJobData.description.benefits}
+          value={newJobData.benefits}
           isTextArea
         />
 
         <InputContainer
           handleInputChange={(e) => {
-            handleChangeJobDescriptionObject(e, setNewJobData, newJobData);
+            handleInputChange(e, setNewJobData, newJobData);
           }}
           name={'requirements'}
           type={'text'}
           labelName={'Requerimentos da vaga'}
-          value={newJobData.description.requirements}
+          value={newJobData.requirements}
           isTextArea
         />
 

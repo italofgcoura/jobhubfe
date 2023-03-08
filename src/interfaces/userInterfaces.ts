@@ -25,11 +25,6 @@ interface ICategorie {
 interface IUserData {
   name: string,
   email: string,
-  address: {
-    street: string,
-    number: string,
-    city: string
-  },
   isAdmin: boolean,
   isCompany: boolean,
   userDescription: string,
@@ -53,7 +48,7 @@ interface IUserContext {
   notifications: INotifications,
   userData: IUserData,
   loadingUserData: boolean,
-  categories: ICategories,
+  // categories: ICategories,
   updatingUserData: boolean
   isAdmin: boolean,
   isCompany: boolean,

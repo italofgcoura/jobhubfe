@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState, useCallback, } from 'react';
+import { useEffect, useContext, useState } from 'react';
 
 import { UserContext } from '../../context/user/userContext';
 
@@ -6,27 +6,19 @@ import { IUserData } from '../../interfaces/userInterfaces';
 
 import InputContainer from '../../components/InputContainer';
 
-import handleInputChange, { handleChangeAddressObject } from '../../utils/handleInputChange';
-
-interface ILogin {
-  title?: string
-}
-
-interface ICategorie {
-  _id: string,
-  name: string
-}
+import handleInputChange from '../../utils/handleInputChange';
 
 import Modal from '../../components/Modal';
 
 import Spinner from '../../components/Spinner';
-import PageAnimation from '../../components/PageAnimation';
+
 import PageWithTitleContainer from '../../components/PageWithTitleContainer';
+
 import { Button } from '../../components/ActionButton/styles';
 
-const Register: React.FC<ILogin> = ({ title }) => {
+const Register: React.FC = () => {
 
-  const { userData, loadingUserData, updateUserData, categories, isCompany } = useContext(UserContext);
+  const { userData, loadingUserData, updateUserData, isCompany } = useContext(UserContext);
 
   const [editUserData, setEditUserData] = useState(false);
 
@@ -38,49 +30,48 @@ const Register: React.FC<ILogin> = ({ title }) => {
 
   const onRegiterUserdata = async (e: any) => {
     e.preventDefault();
-    console.log('userDataInputs', userDataInputs);
     await updateUserData(userDataInputs);
     setEditUserData(false);
   };
 
-  const categorieStyle = useCallback((categorieId: string) => {
-    if (userDataInputs.userTechnologies.find(userCategorie => userCategorie._id === categorieId)) {
-      return {
-        backgroundColor: '#d1d1d1'
-      };
-    }
-    return {
-      backgroundColor: '#182da3'
-    };
-  }, []);
+  // const categorieStyle = useCallback((categorieId: string) => {
+  //   if (userDataInputs?.userTechnologies.find(userCategorie => userCategorie._id === categorieId)) {
+  //     return {
+  //       backgroundColor: '#d1d1d1'
+  //     };
+  //   }
+  //   return {
+  //     backgroundColor: '#182da3'
+  //   };
+  // }, []);
 
-  const handleAddCategorie = useCallback((categorie: ICategorie) => {
+  // const handleAddCategorie = useCallback((categorie: ICategorie) => {
 
-    const tempUserTechnologies = userDataInputs.userTechnologies;
+  //   const tempUserTechnologies = userDataInputs?.userTechnologies;
 
-    tempUserTechnologies.push(categorie);
+  //   tempUserTechnologies.push(categorie);
 
-    setUserDataInputs({ ...userDataInputs, userTechnologies: tempUserTechnologies });
+  //   setUserDataInputs({ ...userDataInputs, userTechnologies: tempUserTechnologies });
 
-  }, []);
+  // }, []);
 
-  const handleRemoveCategorie = useCallback((categorieId: string) => {
+  // const handleRemoveCategorie = useCallback((categorieId: string) => {
 
-    setUserDataInputs({
-      ...userDataInputs,
-      userTechnologies: userDataInputs.userTechnologies.filter((cat: ICategorie) => cat._id !== categorieId)
-    });
+  //   setUserDataInputs({
+  //     ...userDataInputs,
+  //     userTechnologies: userDataInputs?.userTechnologies.filter((cat: ICategorie) => cat._id !== categorieId)
+  //   });
 
-  }, []);
+  // }, []);
 
-  const handleClick = useCallback((categorie: ICategorie) => {
-    if (userDataInputs.userTechnologies.find(userCategorie => userCategorie._id === categorie._id)) {
-      handleRemoveCategorie(categorie._id);
-      return;
-    }
+  // const handleClick = useCallback((categorie: ICategorie) => {
+  //   if (userDataInputs?.userTechnologies.find(userCategorie => userCategorie._id === categorie._id)) {
+  //     handleRemoveCategorie(categorie._id);
+  //     return;
+  //   }
 
-    handleAddCategorie(categorie);
-  }, []);
+  //   handleAddCategorie(categorie);
+  // }, []);
 
   if (loadingUserData) return <Modal><Spinner size={80} centered /></Modal>;
 
@@ -112,7 +103,7 @@ const Register: React.FC<ILogin> = ({ title }) => {
           name='userDescription'
           type='text'
           labelName='Descrição'
-          value={userDataInputs.userDescription || ''}
+          value={userDataInputs?.userDescription || ''}
           style={{ height: '150px' }}
           isTextArea
           disabled={!editUserData}
@@ -120,13 +111,12 @@ const Register: React.FC<ILogin> = ({ title }) => {
 
         {!isCompany &&
           <>
-            {/* technoligas que o usuário tem as manhas */}
-            <h1>Tecnologias que o usuário tem as manhas:</h1>
+            {/* <h1>Tecnologias que o usuário tem as manhas:</h1>
             <div>
-              {userDataInputs.userTechnologies.length === 0 ?
+              {userDataInputs?.userTechnologies?.length === 0 ?
                 <h4>Este usuário ainda não cadastrou nenhuma tecnologia</h4>
                 :
-                userDataInputs.userTechnologies.sort((a, b) => a?.name.localeCompare(b?.name)).map((categorie: ICategorie) => (
+                userDataInputs?.userTechnologies.sort((a, b) => a?.name.localeCompare(b?.name)).map((categorie: ICategorie) => (
                   <button key={categorie?._id}
                     onClick={() => handleClick(categorie)}
                     disabled={!editUserData}
@@ -134,9 +124,9 @@ const Register: React.FC<ILogin> = ({ title }) => {
                 ))
               }
             </div>
-            <h5>Categorias disponíveis para serem adicionadas ao perfil:</h5>
+            <h5>Categorias disponíveis para serem adicionadas ao perfil:</h5> */}
 
-            <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+            {/* <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', width: '60%', justifyContent: 'center' }}>
                 {categories.sort((a, b) => a?.name.localeCompare(b?.name)).map((categorie: ICategorie) => (
                   <button key={categorie._id}
@@ -147,13 +137,13 @@ const Register: React.FC<ILogin> = ({ title }) => {
                 ))
                 }
               </div>
-            </div>
+            </div> */}
 
           </>
         }
 
-        <h1>Endereço:</h1>
-
+        {/* <h1>Endereço:</h1> */}
+        {/*
         <div style={{ display: 'flex', width: '100%', gap: '8px' }}>
           <InputContainer
             handleInputChange={(e) =>
@@ -184,7 +174,7 @@ const Register: React.FC<ILogin> = ({ title }) => {
             value={userDataInputs.address.number || ''}
             disabled={!editUserData}
           />
-        </div>
+        </div> */}
 
         <div style={{ display: 'flex', gap: '32px' }}>
 

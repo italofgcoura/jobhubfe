@@ -51,10 +51,10 @@ export default () => {
             <p>{user.name}</p>
             <p>{user.email}</p>
             <p>{user.userDescription}</p>
-            <div style={{ display: 'flex', gap: 8 }}>
+            {/* <div style={{ display: 'flex', gap: 8 }}>
               {user.userTechnologies.map((tech) =>
                 <span>{tech.name}</span>)}
-            </div>
+            </div> */}
           </div>
         )}
     </ListContainer>

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { jobDetailsRequest } from '../../requests/job';
 import { AuthContext } from '../../context/auth/authContext';
 import { UserContext } from '../../context/user/userContext';
+import { JobContext } from '../../context/job/jobContext';
 import { IJob } from '../../interfaces/jobInterfaces';
 import makeRequest from '../../utils/makeRequest';
 import Modal from '../../components/Modal';
@@ -11,6 +12,8 @@ import PageWithTitleContainer from '../../components/PageWithTitleContainer';
 
 import { Button } from '../../components/ActionButton/styles';
 
+import { useTheme } from 'styled-components';
+
 export default () => {
 
   const [jobDetails, setJobDetails] = useState<IJob>();
@@ -18,7 +21,10 @@ export default () => {
   const [error, setError] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
   const { userData } = useContext(UserContext);
+  const { applyForJob, applingForJob } = useContext(JobContext);
   const params = useParams();
+
+  const theme = useTheme();
 
   const load = async () => {
     // const res = await jobDetailsRequest(params.id);
@@ -44,47 +50,54 @@ export default () => {
 
   return (
     <PageWithTitleContainer>
-      {error && <h1>Ocorreu um erro ao carregar as informações da vaga. Tente novamente mais tarde.</h1>}
+      {error || !jobDetails?.id && <h1>Ocorreu um erro ao carregar as informações da vaga. Tente novamente mais tarde.</h1>}
 
-      {!error && <>
+      {!error && jobDetails?.id &&
+        <div style={{ color: theme.text }}>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
-          <p>{jobDetails?.companyName}</p>
-          <p>Título: {jobDetails?.title}</p>
-          <p>Senioridade:{jobDetails?.seniority}</p>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
-          <p>Salário: {jobDetails?.wage}</p>
-          <p>Prazo para início: {jobDetails?.startDeadLine}</p>
-          <p>Contato: {jobDetails?.contact}</p>
-        </div>
-        <ul>
-          <li>
-            <p>Descrição:</p>
-            <p>{jobDetails?.description.jobDescription}</p>
-          </li>
-          <li>
-            <p>Benefícios:</p>
-            <p>{jobDetails?.description.benefits}</p>
-          </li>
-          <li>
-            <p>Requerimentos da vaga:</p>
-            <p>{jobDetails?.description.requirements}</p>
-          </li>
-        </ul>
-
-        {!userData.isCompany &&
-          <div
-            style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
-          >
-            {jobDetails?.candidates?.find(i => i === userData.userId) ?
-              <p>você já se candidatou a esta vaga</p>
-              :
-              <Button><button>candidatar</button></Button>
-            }
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
+            <p>{jobDetails?.companyName}</p>
+            <p>Título: {jobDetails?.title}</p>
+            <p>Senioridade:{jobDetails?.seniority}</p>
           </div>
-        }
-      </>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
+            <p>Salário: {jobDetails?.wage}</p>
+            <p>Prazo para início: {jobDetails?.startDeadLine}</p>
+            <p>Contato: {jobDetails?.contact}</p>
+          </div>
+          <ul>
+            <li>
+              <p>Descrição:</p>
+              <p>{jobDetails?.description}</p>
+            </li>
+            <li>
+              <p>Benefícios:</p>
+              <p>{jobDetails?.benefits}</p>
+            </li>
+            <li>
+              <p>Requerimentos da vaga:</p>
+              <p>{jobDetails?.requirements}</p>
+            </li>
+          </ul>
+
+          {!userData.isCompany &&
+            <div
+              style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
+            >
+              {jobDetails?.candidates?.find(i => i === userData.userId) ?
+                <p>você já se candidatou a esta vaga</p>
+                :
+                <Button
+                  onClick={() => applyForJob(jobDetails?.id)}
+                >
+                  <button disabled={applingForJob}>
+                    candidatar
+                    {applingForJob && <Spinner size={10} />}
+                  </button></Button>
+              }
+            </div>
+          }
+        </div>
       }
     </PageWithTitleContainer>
   );

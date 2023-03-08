@@ -14,7 +14,7 @@ import ListJobs from '../../components/ListJobs';
 import PageWithTitleContainer from '../../components/PageWithTitleContainer';
 import NotFound from '../../components/NotFound';
 
-const Login: React.FC<ILogin> = ({ title }) => {
+const Login: React.FC<ILogin> = () => {
 
   const { loadingHome, loadingUserData, userData, homeError } = useContext(UserContext);
 
@@ -42,6 +42,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
 
 
   if (homeError) return <h1>Erro ao carregar a home...</h1>;
+
 
   return (
 

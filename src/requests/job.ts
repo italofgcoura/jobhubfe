@@ -6,11 +6,43 @@ const getJobsRequest = async () => {
   return result.data;
 };
 
+const companyRegisteredNewJobRequest = async (jobData: object) => {
+  const result = await api.post('/job', jobData);
+
+  return result.data;
+};
+
+
+const jobDetailsRequest = async (jobId: any) => {
+  const result = await api.get('/job-details', { params: { jobId } });
+
+  return result.data;
+};
+
+
 const applyForJobRequest = async (jobId: string) => {
-  const result = await api.patch('/apply', { jobId });
+  const result = await api.post('/apply', { jobId });
 
   return result;
 };
+
+
+
+
+
+
+
+
+const usersByJobRequest = async (jobId: any) => {
+  const result = await api.get('/users-by-job', { params: { jobId } });
+
+  return result.data;
+};
+
+
+
+
+
 
 const userAppliedJobsRequest = async () => {
   const result = await api.get('/user-applied-jobs');
@@ -24,23 +56,9 @@ const companyRegisteredJobsRequest = async () => {
   return result.data;
 };
 
-const companyRegisteredNewJobRequest = async (jobData: object) => {
-  const result = await api.post('/job', jobData);
 
-  return result.data;
-};
 
-const usersByJobRequest = async (jobId: any) => {
-  const result = await api.get('/users-by-job', { params: { jobId } });
 
-  return result.data;
-};
-
-const jobDetailsRequest = async (jobId: any) => {
-  const result = await api.get('/job-details', { params: { jobId } });
-
-  return result.data;
-};
 
 // const getNotificationsRequest = async () => {
 //   const result = await api.get('/notifications');

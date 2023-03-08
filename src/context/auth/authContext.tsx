@@ -30,8 +30,6 @@ const AuthProvider = ({ children }: IProps) => {
 
     auth.onAuthStateChanged(async user => {
 
-      console.log('useruseruseruser', user);
-
       if (!user) {
         handleLogout();
         return;

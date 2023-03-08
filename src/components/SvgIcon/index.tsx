@@ -4,6 +4,8 @@ import { ReactComponent as Seniority } from '../../assets/noun-seniority-2063262
 import { ReactComponent as Calendar } from '../../assets/calendar_month_black_24dp.svg';
 import { ReactComponent as SadFace } from '../../assets/sentiment_dissatisfied_black_24dp.svg';
 import { ReactComponent as Google } from '../../assets/icons8-google.svg';
+import { ReactComponent as CheckBox } from '../../assets/check_box_black_24dp.svg';
+import { ReactComponent as CheckBoxBlank } from '../../assets/check_box_outline_blank_black_24dp.svg';
 
 const iconDictionary = {
   check: Check,
@@ -11,7 +13,9 @@ const iconDictionary = {
   seniority: Seniority,
   calendar: Calendar,
   sadFace: SadFace,
-  google: Google
+  google: Google,
+  checkBox: CheckBox,
+  checkBoxBlank: CheckBoxBlank
 };
 
 export type IconSource = keyof typeof iconDictionary;

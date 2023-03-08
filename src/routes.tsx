@@ -1,5 +1,5 @@
-import React, { useContext, ReactNode, useCallback } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { useContext, ReactNode } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Jobs from './pages/Jobs';
 import UserData from './pages/UserProfile';
@@ -14,6 +14,8 @@ import JobsByUser from './pages/JobsByUser';
 import JobDetails from './pages/JobDetails';
 
 import ForgotMyPassword from './pages/ForgotMyPassword';
+
+import { PagesContainer } from './pages/styles';
 
 interface IProps {
   children: ReactNode,
@@ -42,34 +44,46 @@ const RouterComponent: React.FC = (): JSX.Element => {
   return (
     <Routes>
 
-      <Route path='' element={<Login />} />
+      <Route path='' element={
+        <PagesContainer center><Login /></PagesContainer>}
+      />
 
-      <Route path='cadastro-usuario' element={<Register />} />
+      <Route path='cadastro-usuario' element={
+        <PagesContainer center><Register /></PagesContainer>}
+      />
 
-      <Route path='esqueci-senha' element={<ForgotMyPassword />} />
+      <Route path='esqueci-senha' element={
+        <PagesContainer center><ForgotMyPassword /></PagesContainer>}
+      />
 
       <Route path='vagas'>
 
         <Route index element={
-          // <ProtectedRoute>
-          < Jobs />
-          // </ProtectedRoute>
+          <PagesContainer>
+            < Jobs />
+          </PagesContainer>
         } />
 
         <Route path='detalhes/:id' element={
-          <JobDetails />
+          <PagesContainer>
+            <JobDetails />
+          </PagesContainer>
         } />
 
         <Route path='cadastro-vaga' element={
           <ProtectedRoute>
-            <RegisterNewJob />
+            <PagesContainer>
+              <RegisterNewJob />
+            </PagesContainer>
           </ProtectedRoute>
         } />
 
         {/* jobs company registereds */}
         <Route path='minhas-vagas-cadastradas' element={
           <ProtectedRoute>
-            <CompanyRegisteredJobs />
+            <PagesContainer>
+              <CompanyRegisteredJobs />
+            </PagesContainer>
           </ProtectedRoute>
         } />
 
@@ -79,42 +93,35 @@ const RouterComponent: React.FC = (): JSX.Element => {
         {/* jobs user applied */}
         <Route path='minhas-candidaturas' element={
           <ProtectedRoute>
-            <AppliedJobs />
+            <PagesContainer>
+              <AppliedJobs />
+            </PagesContainer>
           </ProtectedRoute>
         } />
 
         <Route path='candidatos/:id' element={
           <ProtectedRoute>
-            <JobsByUser />
+            <PagesContainer>
+              <JobsByUser />
+            </PagesContainer>
           </ProtectedRoute>
         } />
 
 
       </Route>
 
-      {/* new job register */}
-      {/* <Route path='/vagas/cadastro-vaga' element={
-          <ProtectedRoute>
-            <RegisterNewJob />
-          </ProtectedRoute>
-        } /> */}
-
       <Route path='meu-perfil' element={
         <ProtectedRoute>
-          <UserData />
+          <PagesContainer>
+            <UserData />
+          </PagesContainer>
         </ProtectedRoute>
       } />
-
-      {/* jobs user applied
-        <Route path='/minhas-vagas' element={
-          <ProtectedRoute>
-            <AppliedJobs />
-          </ProtectedRoute>
-        } /> */}
-
       <Route path='*' element={
         <ProtectedRoute>
-          <NotFound />
+          <PagesContainer center>
+            <NotFound />
+          </PagesContainer>
         </ProtectedRoute>
       } />
 

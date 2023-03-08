@@ -33,6 +33,7 @@ export const Button = styled.div`
         &:hover{
           border: 2px solid ${({ theme }) => theme.text};
           box-shadow: none;
+          cursor: auto;
         }
     }
   }

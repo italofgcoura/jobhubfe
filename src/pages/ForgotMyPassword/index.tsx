@@ -39,17 +39,8 @@ const Login = () => {
 
     await makeRequest(sendPasswordReset, setErrorResetPassword, setSendingReset, userLoginData.email);
 
-    // try {
-    //   await sendPasswordReset(userLoginData.email);
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setSendingReset(false);
-    // }
-
   };
 
-  console.log('disabled', disabled, sendingReset);
 
   return (
 

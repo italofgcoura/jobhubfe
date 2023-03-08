@@ -73,6 +73,7 @@ export default ({ handleInputChange, name, type, labelName, value, style, size, 
   return (
     <InputContainer
       style={inputContainerStyle}
+      disabled={disabled}
     >
       <label
         style={focusStyle}

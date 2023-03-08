@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 interface iInputContainer {
-  width?: string
+  width?: string,
+  disabled?: boolean
 }
 
 export const InputContainer = styled.div<iInputContainer>`
@@ -19,6 +20,8 @@ export const InputContainer = styled.div<iInputContainer>`
     font-weight: bold;
     color: ${({ theme }) => theme.text};
     padding: 2px;
+    z-index: 99;
+    opacity: ${({ disabled }) => disabled ? 0.5 : 1};
   }
 
   input, textArea{

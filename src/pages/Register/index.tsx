@@ -13,6 +13,10 @@ import handleInputChange from '../../utils/handleInputChange';
 import LoginContainer from '../../components/LoginContainer';
 
 import LinkComponent from '../../components/LinkComponent';
+import SvgIcon from '../../components/SvgIcon';
+import Spinner from '../../components/Spinner';
+
+import { useTheme } from 'styled-components';
 
 interface IUserLogin {
   email: string,
@@ -29,6 +33,8 @@ const Register = () => {
   const { createNewUser, loadingCreatingNewUser } = useContext(UserContext);
 
   const { isAuthenticated } = useContext(AuthContext);
+
+  const theme = useTheme();
 
   const [userLogin, setUserLogin] = useState<IUserLogin>({
     email: '',
@@ -47,7 +53,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate('/vagas');
     }
   }, [isAuthenticated]);
 
@@ -102,19 +108,23 @@ const Register = () => {
         />
 
         <div
-          style={{ display: 'flex', gap: '16px', alignItems: 'center' }}
+          style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '24px' }}
+          onClick={() => setUserLogin({ ...userLogin, isCompany: !userLogin.isCompany })}
         >
-          <input type='checkbox'
+          <SvgIcon source={userLogin.isCompany ? 'checkBox' : 'checkBoxBlank'} height={24} width={24} color={theme.text} />
+          {/* <input type='checkbox'
             onChange={() => setUserLogin({ ...userLogin, isCompany: !userLogin.isCompany })}
-          />
-          <label>Sou um empresa</label>
+          /> */}
+          <label style={{ color: theme.text }}>Sou um empresa</label>
         </div>
 
         {loadingCreatingNewUser && <p>Criando novo usuário...</p>}
 
         <button type='submit'
           disabled={btnDisabled || loadingCreatingNewUser}
-        >Cadastrar</button>
+        >Cadastrar
+          {loadingCreatingNewUser && <Spinner size={10} />}
+        </button>
 
         {(userLogin.confirmPassword !== '' && userLogin.password !== userLogin.confirmPassword) &&
           <div style={{ height: '18px' }}>

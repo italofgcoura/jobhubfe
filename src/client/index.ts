@@ -4,7 +4,7 @@ import { auth } from '../firebase/index';
 
 const api = axios.create(
   {
-    baseURL: 'https://jobhub-k98c.onrender.com',
+    baseURL: 'http://localhost:3001',
     timeout: 30000,
     headers: {
       'Content-Type': 'application/json',
@@ -14,12 +14,10 @@ const api = axios.create(
 );
 
 api.interceptors.response.use(response => {
-  console.log(response);
   return response;
 }, async error => {
 
   if (error.response.status === 401) {
-    console.log('1000');
 
     const token = await auth.currentUser?.getIdToken(true);
 

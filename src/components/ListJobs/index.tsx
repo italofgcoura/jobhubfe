@@ -11,7 +11,7 @@ export default ({ errorLoading, jobs, appliedPage, isCompanyRegisteredJobs }: IL
       {errorLoading && <p>Ocorreu um erro ao carregar as vagas...</p>}
       {!errorLoading &&
         jobs.length > 0 && jobs.map((job) => (
-        <JobCard job={job} appliedPage={appliedPage} key={job._id} isCompanyRegisteredJobs={isCompanyRegisteredJobs} />
+        <JobCard job={job} appliedPage={appliedPage} key={job.id} isCompanyRegisteredJobs={isCompanyRegisteredJobs} />
       ))
       }
     </ListContainer>

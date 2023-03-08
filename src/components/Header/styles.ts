@@ -8,7 +8,7 @@ export const Header = styled.div`
   background-color: ${({ theme }) => theme.pageBackgroundColor};
   display: flex;
   justify-content: center;
-  z-index: 99;
+  z-index: 999;
   border-bottom: 2px solid ${({ theme }) => theme.primary};
 
   .active{
@@ -52,4 +52,9 @@ export const MenuContainer = styled.ul`
 
 
   }
+`;
+
+export const UserSalutation = styled.h3`
+  font-size: 14px;
+  color: ${({ theme }) => theme.accent};
 `;

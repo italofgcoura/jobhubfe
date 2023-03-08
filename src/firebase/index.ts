@@ -57,22 +57,19 @@ const registerWithEmailAndPassword = async (name: string, email: string, passwor
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
-    console.log('res createUserWithEmailAndPassword', res);
-
     const user = res.user;
 
     if (auth?.currentUser) {
       await sendEmailVerification(auth.currentUser);
     }
 
-    const addDoccc = await addDoc(collection(db, 'users'), {
+    await addDoc(collection(db, 'users'), {
       uid: user.uid,
       name,
       authProvider: 'local',
       email,
     });
 
-    console.log('addDoccc', addDoccc);
 
 
     return user;

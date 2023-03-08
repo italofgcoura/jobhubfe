@@ -48,12 +48,20 @@ const JobProvider = ({ children }: IProps) => {
 
       const res: IJobs = await makeRequest(getJobsRequest, setErrorLoadingJobs, setLoadingJobs);
 
-      setJobs(res?.sort((a, b) => documentCreationDate(b?._id).getTime() - documentCreationDate(a?._id).getTime()));
+      setJobs(res?.sort((a, b) => documentCreationDate(b?.id).getTime() - documentCreationDate(a?.id).getTime()));
 
       return;
     }
 
     setLoadingJobs(false);
+
+  };
+
+  const reloadJobs = async () => {
+
+    const res: IJobs = await makeRequest(getJobsRequest, setErrorLoadingJobs, setLoadingJobs);
+
+    setJobs(res?.sort((a, b) => documentCreationDate(b?.id).getTime() - documentCreationDate(a?.id).getTime()));
 
   };
 
@@ -104,7 +112,8 @@ const JobProvider = ({ children }: IProps) => {
     companyJobs,
     loadCompanyRegisteredJobs,
     loading,
-    error
+    error,
+    reloadJobs
   }), [loadJobs,
     jobs,
     errorLoadingJobs,
@@ -120,7 +129,7 @@ const JobProvider = ({ children }: IProps) => {
     companyJobs,
     loadCompanyRegisteredJobs,
     loading,
-    error]);
+    error, reloadJobs]);
 
   return (
     <JobContext.Provider value={values}>

@@ -5,17 +5,15 @@ import { UserContext } from '../../context/user/userContext';
 import { ThemeContext } from '../../App';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 
-import { Header, MenuContainer, HeaderContainer } from './styles';
+import { Header, MenuContainer, HeaderContainer, UserSalutation } from './styles';
 
 import { JobContext } from '../../context/job/jobContext';
-
-// import icone from '../../assets/iconee.svg';
-// import iconDarkMode from '../../assets/icone_dark_mode.svg';
 
 export default () => {
   const { handleLogout, isAuthenticated } = useContext(AuthContext);
 
-  const { loadUserData, userData, loadingHome, loadingUserData, isCompany, resetUser, homeError } = useContext(UserContext);
+  const { loadUserData, userData, loadingHome, loadingUserData,
+    isCompany, resetUser, homeError } = useContext(UserContext);
 
   const { resetStates } = useContext(JobContext);
 
@@ -60,9 +58,7 @@ export default () => {
       <HeaderContainer>
 
         <Link to='/vagas' style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column' }}>
-          {/* <img src={selectedTheme === 'dark' ? iconDarkMode : icone} alt=''
-            style={{ objectFit: 'cover', objectPosition: 'center', width: '20%' }} /> */}
-          {isAuthenticated && <h1 style={{ fontSize: '14px' }}>Olá, {userData.name}</h1>}
+          {isAuthenticated && <UserSalutation>Olá, {userData.name}</UserSalutation>}
         </Link>
         <MenuContainer>
           <li><NavLink end to='/vagas'>home</NavLink></li>
