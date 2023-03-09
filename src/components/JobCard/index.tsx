@@ -95,23 +95,23 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
           <p>Ocorreu um erro ao condidatar. Tente novamente mais tarde.</p>
         }
 
-        {/* {(!errorApplyingForJob) &&
-          <>
-            {(job.applied || job.candidates?.find(i => i === userData.userId)) &&
-              <p
-                style={{
-                  color: theme.colors.GREEN[900],
-                  marginTop: '32px',
-                  display: 'flex',
-                  alignItems: 'center', gap: '8px'
-                }}
-              >
-                <b>Você já se candidatou para esta vaga.</b>
-                <SvgIcon source='check' color={theme.colors.GREEN[900]} />
-              </p>
-            }
-          </>
-        } */}
+
+
+        {job.applied &&
+          <p
+            style={{
+              color: theme.colors.GREEN[900],
+              marginTop: '32px',
+              display: 'flex',
+              alignItems: 'center', gap: '8px'
+            }}
+          >
+            <b>Você já se candidatou para esta vaga.</b>
+            <SvgIcon source='check' color={theme.colors.GREEN[900]} />
+          </p>
+        }
+
+
       </>
     }
 
