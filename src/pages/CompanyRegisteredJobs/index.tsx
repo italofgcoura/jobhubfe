@@ -5,6 +5,7 @@ import ListJobs from '../../components/ListJobs';
 import Modal from '../../components/Modal';
 import Spinner from '../../components/Spinner';
 import PageWithTitleContainer from '../../components/PageWithTitleContainer';
+import NotFound from '../../components/NotFound';
 
 export default () => {
 
@@ -22,7 +23,7 @@ export default () => {
 
   return (
     <PageWithTitleContainer>
-      {(companyJobs.length === 0) ? <p>Ainda não tem vagas cadastradas</p>
+      {(companyJobs.length === 0) ? <NotFound message='Ainda não tem vagas cadastradas' />
         :
         <ListJobs
           errorLoading={error}

@@ -9,6 +9,10 @@ import { Header, MenuContainer, HeaderContainer, UserSalutation } from './styles
 
 import { JobContext } from '../../context/job/jobContext';
 
+import SvgIcon from '../SvgIcon';
+
+import { useTheme } from 'styled-components';
+
 export default () => {
   const { handleLogout, isAuthenticated } = useContext(AuthContext);
 
@@ -22,6 +26,8 @@ export default () => {
   const navigate = useNavigate();
 
   const isLoaded = useRef(false);
+
+  const theme = useTheme();
 
   const logout = () => {
     resetUser();
@@ -75,10 +81,14 @@ export default () => {
             {!isCompany &&
               <li><NavLink end to='/vagas/minhas-candidaturas'>minhas candidaturas</NavLink></li>
             }
-            <button onClick={logout}>logout</button>
+            <button onClick={logout}
+              style={{ backgroundColor: 'transparent', border: 'none', display: 'flex', alignItems: 'center', gap: 4, color: theme.text }}
+            > <SvgIcon source='leave' color={theme.text} /> logout</button>
           </>}
           {!isAuthenticated && <li><NavLink end to='/'>login</NavLink></li>}
-          <button onClick={handleToggleTheme}>{selectedTheme === 'dark' ? '🌙' : '☀️'}</button>
+          <button onClick={handleToggleTheme}
+            style={{ backgroundColor: 'transparent', border: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
+          >{selectedTheme === 'dark' ? '☀️' : '🌙'}</button>
         </MenuContainer>
       </HeaderContainer>
     </Header >

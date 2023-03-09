@@ -95,7 +95,7 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
           <p>Ocorreu um erro ao condidatar. Tente novamente mais tarde.</p>
         }
 
-        {(!errorApplyingForJob) &&
+        {/* {(!errorApplyingForJob) &&
           <>
             {(job.applied || job.candidates?.find(i => i === userData.userId)) &&
               <p
@@ -111,7 +111,7 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
               </p>
             }
           </>
-        }
+        } */}
       </>
     }
 
@@ -122,7 +122,7 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
     }}>
       {isCompanyRegisteredJobs &&
         (
-          job.candidates?.length === 0 ?
+          job.numberOfCandidates === 0 ?
             <div
               style={{
                 marginTop: '32px',

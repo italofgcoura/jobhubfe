@@ -10,7 +10,7 @@ interface IJob {
   contact: string,
   startDeadLine: string,
   applied?: boolean,
-  candidates?: string[]
+  numberOfCandidates?: number
 }
 
 type IJobs = Array<IJob>

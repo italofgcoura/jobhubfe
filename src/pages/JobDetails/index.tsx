@@ -84,7 +84,7 @@ export default () => {
             <div
               style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
             >
-              {jobDetails?.candidates?.find(i => i === userData.userId) ?
+              {/* {jobDetails?.candidates?.find(i => i === userData.userId) ?
                 <p>você já se candidatou a esta vaga</p>
                 :
                 <Button
@@ -94,7 +94,7 @@ export default () => {
                     candidatar
                     {applingForJob && <Spinner size={10} />}
                   </button></Button>
-              }
+              } */}
             </div>
           }
         </div>

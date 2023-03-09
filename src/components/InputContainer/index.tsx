@@ -93,17 +93,24 @@ export default ({ handleInputChange, name, type, labelName, value, style, size, 
         />
       }
       {isTextArea &&
-        <textarea
-          name={name}
-          onChange={handleInputChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          value={value}
-          ref={inputRefTextArea}
-          readOnly={handleInputChange === undefined}
-          style={{ height: '100px', resize: 'none' }}
-          disabled={disabled}
-        />
+        <>
+          <textarea
+            name={name}
+            onChange={handleInputChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            value={value}
+            ref={inputRefTextArea}
+            readOnly={handleInputChange === undefined}
+            style={{ height: '100px', resize: 'none' }}
+            disabled={disabled}
+          />
+          <label style={{
+            bottom: '-15px', top: 'unset', fontSize: '10px', right: 0, left: 'unset'
+          }}>Caracteres disponíveis: {value ?
+              500 - value?.toString().length || 0
+              : 500} </label>
+        </>
       }
     </InputContainer >
   );

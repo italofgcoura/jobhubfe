@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo, useState, } from 'react';
+import { createContext, useMemo, useState, } from 'react';
 
 import { IJobs, IProps, IJobContext, } from '../../interfaces/jobInterfaces';
 
@@ -10,7 +10,7 @@ import initialValues from './initialValues';
 
 import documentCreationDate from '../../utils/documentCreationDate';
 
-import { auth } from '../../firebase';
+// import { auth } from '../../firebase';
 
 const initial = {};
 

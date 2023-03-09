@@ -22,12 +22,10 @@ import { Button } from '../../components/ActionButton/styles';
 const RegisterNewJob = () => {
 
   const { userData } = useContext(UserContext);
-  const { reloadJobs } = useContext(JobContext);
-  const [errorRegisterNewJob, setErrorRegisterNewJob] = useState(false);
+  const { reloadJobs, loadCompanyRegisteredJobs } = useContext(JobContext);
+  const [errorRegisterNewJob, setErrorRegisterNewJob] = useState(undefined);
 
   const [registeringNewJob, setRegisteringNewJob] = useState(false);
-
-  console.log(userData);
 
   const startJobObject = {
     companyName: userData.name,
@@ -50,10 +48,13 @@ const RegisterNewJob = () => {
     event.preventDefault();
 
     await makeRequest(companyRegisteredNewJobRequest, setErrorRegisterNewJob, setRegisteringNewJob, newJobData);
-    console.log('after request');
-    await reloadJobs();
 
-    // setNewJobData(startJobObject);
+    Promise.all([
+      reloadJobs(),
+      loadCompanyRegisteredJobs()
+    ]);
+
+    setNewJobData(startJobObject);
 
   };
 
@@ -96,7 +97,7 @@ const RegisterNewJob = () => {
             name={'wage'}
             type={'text'}
             labelName={'Salário'}
-            value={newJobData.wage || ''}
+            value={newJobData.wage}
           />
 
           <InputContainer
@@ -148,6 +149,9 @@ const RegisterNewJob = () => {
           isTextArea
         />
 
+        {errorRegisterNewJob && <p>Ocorreu um erro ao cadastrar a nova vaga. Tente novamente mais tarde.</p>}
+
+        {errorRegisterNewJob === false && <p>Vaga cadastrada com sucesso.</p>}
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
           <Button>
