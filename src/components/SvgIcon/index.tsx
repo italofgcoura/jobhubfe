@@ -7,6 +7,7 @@ import { ReactComponent as Google } from '../../assets/icons8-google.svg';
 import { ReactComponent as CheckBox } from '../../assets/check_box_black_24dp.svg';
 import { ReactComponent as CheckBoxBlank } from '../../assets/check_box_outline_blank_black_24dp.svg';
 import { ReactComponent as Leave } from '../../assets/exit_to_app_black_24dp.svg';
+import { ReactComponent as Fail } from '../../assets/close_black_24dp.svg';
 
 const iconDictionary = {
   check: Check,
@@ -17,7 +18,8 @@ const iconDictionary = {
   google: Google,
   checkBox: CheckBox,
   checkBoxBlank: CheckBoxBlank,
-  leave: Leave
+  leave: Leave,
+  fail: Fail
 };
 
 export type IconSource = keyof typeof iconDictionary;

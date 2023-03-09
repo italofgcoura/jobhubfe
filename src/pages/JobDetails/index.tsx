@@ -13,15 +13,20 @@ import PageWithTitleContainer from '../../components/PageWithTitleContainer';
 import { Button } from '../../components/ActionButton/styles';
 
 import { useTheme } from 'styled-components';
+import Message from '../../components/Message';
 
 export default () => {
 
-  const [jobDetails, setJobDetails] = useState<IJob>();
-  const [loadingDetails, setLoadingDetails] = useState(true);
-  const [error, setError] = useState(false);
   const { isAuthenticated } = useContext(AuthContext);
   const { userData } = useContext(UserContext);
-  const { applyForJob, applingForJob } = useContext(JobContext);
+  const { applyForJob, applingForJob, selectedJobDetails } = useContext(JobContext);
+
+  const [jobDetails, setJobDetails] = useState<IJob>(selectedJobDetails);
+  const [loadingDetails, setLoadingDetails] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [successApplied, setSuccessApplied] = useState<boolean | undefined>(undefined);
+
   const params = useParams();
 
   const theme = useTheme();
@@ -35,7 +40,9 @@ export default () => {
   };
 
   useEffect(() => {
-    load();
+    if (!selectedJobDetails.id) {
+      load();
+    }
   }, []);
 
   const loading = isAuthenticated ?
@@ -47,6 +54,20 @@ export default () => {
       <Spinner centered size={84} />
     </Modal>;
   }
+
+  const handleApplyForJob = async () => {
+
+    const applyResul = await applyForJob(jobDetails?.id);
+
+    if (applyResul) {
+      jobDetails.applied = true;
+      setSuccessApplied(true);
+      return;
+    }
+
+    setSuccessApplied(false);
+
+  };
 
   return (
     <PageWithTitleContainer>
@@ -80,20 +101,39 @@ export default () => {
             </li>
           </ul>
 
+          {jobDetails.companyRepply && <div style={{ borderTop: '1px solid red', width: '100%', paddingTop: '8px', marginTop: '8px' }}>
+            <p>Resposta da empresa:</p>
+            <p>{jobDetails.companyRepply}</p>
+          </div>}
+
           {!userData.isCompany &&
             <div
               style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
             >
-              {jobDetails?.applied ?
-                <p>você já se candidatou a esta vaga</p>
-                :
-                <Button
-                  onClick={() => applyForJob(jobDetails?.id)}
-                >
-                  <button disabled={applingForJob}>
-                    candidatar
-                    {applingForJob && <Spinner size={10} />}
-                  </button></Button>
+
+              {successApplied === true &&
+                <Message message='Candidatura efetuada com sucesso.' success />
+              }
+
+              {successApplied === false &&
+                <Message message='Ocorreu um erro ao efetuar sua canditura, tente novamente mais tarde.' />
+              }
+
+              {(successApplied === undefined) &&
+                <>
+                  {jobDetails?.applied ?
+                    <Message message='Você já se candidatou a esta vaga.' success />
+
+                    :
+                    <Button
+                      onClick={handleApplyForJob}
+                    >
+                      <button disabled={applingForJob}>
+                        candidatar
+                        {applingForJob && <Spinner size={10} />}
+                      </button></Button>
+                  }
+                </>
               }
             </div>
           }

@@ -26,10 +26,6 @@ export const HeaderContainer = styled.div`
   width: 960px;
   a{
       text-decoration: none;
-    h1{
-        font-size: 16px;
-        margin-bottom: 0;
-    }
   }
 `;
 
@@ -41,20 +37,45 @@ export const MenuContainer = styled.ul`
 
   li{
       list-style: none;
-      a{
+    a{
       text-decoration: none;
       color: ${({ theme }) => theme.text};
       text-transform: uppercase;
       font-size: 13px;
       font-weight: bold;
       border-bottom: 2px solid ${({ theme }) => theme.text};
+      &:hover{
+        color: ${({ theme }) => theme.accent};
+        border-bottom: 2px solid ${({ theme }) => theme.accent};
+      }
     }
-
-
   }
+
 `;
 
 export const UserSalutation = styled.h3`
   font-size: 14px;
   color: ${({ theme }) => theme.accent};
+`;
+
+export const LoginButton = styled.button`
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.pageBackgroundColor};
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.text};
+  cursor: pointer;
+  transition: 0.2s;
+  text-transform: uppercase;
+  gap: 4px;
+  &:hover{
+    border: 1px solid ${({ theme }) => theme.accent};
+  }
+`;
+
+export const ThemeSelector = styled(LoginButton)`
+  border: none;
+  &:hover{
+    border: none;
+  }
 `;

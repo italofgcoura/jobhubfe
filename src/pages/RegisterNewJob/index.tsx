@@ -37,7 +37,9 @@ const RegisterNewJob = () => {
     wage: 0.00,
     contact: userData.email,
     startDeadLine: '',
-    id: ''
+    id: '',
+    applicationId: '',
+    companyRepply: ''
   };
 
   const [newJobData, setNewJobData] = useState<IJob>({ ...startJobObject });

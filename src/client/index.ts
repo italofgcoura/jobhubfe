@@ -7,8 +7,7 @@ const api = axios.create(
     baseURL: 'http://localhost:3001',
     timeout: 30000,
     headers: {
-      'Content-Type': 'application/json',
-      'X-Content-Type-Options': 'nosniff'
+      'Content-Type': 'application/json'
     }
   }
 );

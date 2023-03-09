@@ -5,7 +5,7 @@ import { UserContext } from '../../context/user/userContext';
 import { ThemeContext } from '../../App';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 
-import { Header, MenuContainer, HeaderContainer, UserSalutation } from './styles';
+import { Header, MenuContainer, HeaderContainer, UserSalutation, LoginButton, ThemeSelector } from './styles';
 
 import { JobContext } from '../../context/job/jobContext';
 
@@ -63,7 +63,8 @@ export default () => {
     <Header>
       <HeaderContainer>
 
-        <Link to='/vagas' style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column' }}>
+        <Link to='/vagas'
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column' }}>
           {isAuthenticated && <UserSalutation>Olá, {userData.name}</UserSalutation>}
         </Link>
         <MenuContainer>
@@ -81,14 +82,19 @@ export default () => {
             {!isCompany &&
               <li><NavLink end to='/vagas/minhas-candidaturas'>minhas candidaturas</NavLink></li>
             }
-            <button onClick={logout}
-              style={{ backgroundColor: 'transparent', border: 'none', display: 'flex', alignItems: 'center', gap: 4, color: theme.text }}
-            > <SvgIcon source='leave' color={theme.text} /> logout</button>
+
+            <LoginButton onClick={logout}>
+              <SvgIcon source='leave' color={theme.text} />
+              <span>sair</span>
+            </LoginButton>
+
           </>}
           {!isAuthenticated && <li><NavLink end to='/'>login</NavLink></li>}
-          <button onClick={handleToggleTheme}
-            style={{ backgroundColor: 'transparent', border: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
-          >{selectedTheme === 'dark' ? '☀️' : '🌙'}</button>
+
+          <ThemeSelector onClick={handleToggleTheme}>
+            {selectedTheme === 'dark' ? '☀️' : '🌙'}
+          </ThemeSelector>
+
         </MenuContainer>
       </HeaderContainer>
     </Header >

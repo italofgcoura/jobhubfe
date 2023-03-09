@@ -117,7 +117,6 @@ const UserProvider = ({ children }: IProps) => {
 
     const created = await registerWithEmailAndPassword(userLoginData.name, userLoginData.email, userLoginData.password);
 
-
     if (created) {
 
       await makeRequest(createNewUserRequest, setErrorCreatingNewUser, setLoadingCreatingNewUser, { ...userLoginData, userId: created.uid });

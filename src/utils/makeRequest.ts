@@ -32,6 +32,8 @@ export default async (
     console.log('ERRORRR', error);
     setErrorFlag(true);
 
+    return false;
+
   } finally {
 
     setLoading(false);

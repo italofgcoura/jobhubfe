@@ -18,6 +18,7 @@ import documentCreationDate from '../../utils/documentCreationDate';
 import { CardContainer, InnerCard } from './styles';
 
 import { Button } from '../ActionButton/styles';
+import Message from '../Message';
 
 interface IJobCard {
   job: IJob,
@@ -27,7 +28,7 @@ interface IJobCard {
 
 export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
 
-  const { errorApplyingForJob } = useContext(JobContext);
+  const { errorApplyingForJob, handleSelectJob } = useContext(JobContext);
 
   const theme = useTheme();
 
@@ -95,22 +96,9 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
           <p>Ocorreu um erro ao condidatar. Tente novamente mais tarde.</p>
         }
 
-
-
         {job.applied &&
-          <p
-            style={{
-              color: theme.colors.GREEN[900],
-              marginTop: '32px',
-              display: 'flex',
-              alignItems: 'center', gap: '8px'
-            }}
-          >
-            <b>Você já se candidatou para esta vaga.</b>
-            <SvgIcon source='check' color={theme.colors.GREEN[900]} />
-          </p>
+          <Message message='Você já se candidatou para esta vaga.' success />
         }
-
 
       </>
     }
@@ -144,7 +132,7 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
         )
       }
 
-      <Button>
+      <Button onClick={() => handleSelectJob(job)}>
         <Link to={`/vagas/detalhes/${job.id}`} className='actionButton'>
           Visualizar todos dados da vaga
         </Link>

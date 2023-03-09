@@ -11,6 +11,8 @@ interface IJob {
   startDeadLine: string,
   applied?: boolean,
   numberOfCandidates?: number
+  applicationId: string,
+  companyRepply: string
 }
 
 type IJobs = Array<IJob>
@@ -25,7 +27,7 @@ interface IJobContext {
   errorLoadingJobs: boolean,
   loadingJobs: boolean,
   resetStates: () => void,
-  applyForJob: (jobId: string) => void,
+  applyForJob: (jobId: string) => Promise<boolean>,
   errorApplyingForJob: boolean,
   applingForJob: boolean,
   loadAppliedJobs: (reload: boolean) => void,
@@ -36,7 +38,9 @@ interface IJobContext {
   loadCompanyRegisteredJobs: () => void,
   loading: boolean,
   error: boolean,
-  reloadJobs: () => void
+  reloadJobs: () => void,
+  selectedJobDetails: IJob,
+  handleSelectJob: (job: IJob) => void
 }
 
 interface IListJobs {

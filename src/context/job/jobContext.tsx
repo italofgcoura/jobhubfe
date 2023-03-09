@@ -1,6 +1,6 @@
-import { createContext, useMemo, useState, } from 'react';
+import { createContext, useMemo, useState, useCallback } from 'react';
 
-import { IJobs, IProps, IJobContext, } from '../../interfaces/jobInterfaces';
+import { IJobs, IProps, IJobContext, IJob, } from '../../interfaces/jobInterfaces';
 
 import makeRequest from '../../utils/makeRequest';
 
@@ -40,6 +40,12 @@ const JobProvider = ({ children }: IProps) => {
 
   const [error, setError] = useState(false);
 
+  const [selectedJobDetails, setSelectedJobDetails] = useState<IJob>(initialValues.job);
+
+  const handleSelectJob = useCallback((job: IJob) => {
+    setSelectedJobDetails(job);
+  }, []);
+
   const loadJobs = async () => {
 
     if (jobs.length === 0) {
@@ -67,7 +73,15 @@ const JobProvider = ({ children }: IProps) => {
 
   const applyForJob = async (jobId: string) => {
 
-    await makeRequest(applyForJobRequest, seterrorApplyingForJob, setLoadingApplyingForJob, jobId);
+    const successApplied = await makeRequest(applyForJobRequest, seterrorApplyingForJob, setLoadingApplyingForJob, jobId);
+
+    if (successApplied) {
+
+      reloadJobs();
+
+    }
+
+    return successApplied;
 
   };
 
@@ -113,7 +127,9 @@ const JobProvider = ({ children }: IProps) => {
     loadCompanyRegisteredJobs,
     loading,
     error,
-    reloadJobs
+    reloadJobs,
+    handleSelectJob,
+    selectedJobDetails
   }), [loadJobs,
     jobs,
     errorLoadingJobs,
@@ -129,7 +145,11 @@ const JobProvider = ({ children }: IProps) => {
     companyJobs,
     loadCompanyRegisteredJobs,
     loading,
-    error, reloadJobs]);
+    error,
+    reloadJobs,
+    handleSelectJob,
+    selectedJobDetails
+  ]);
 
   return (
     <JobContext.Provider value={values}>
