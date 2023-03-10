@@ -17,9 +17,9 @@ export const ApplicationCard = ({ job }: iProps) => {
   };
 
   const handleSubmitRepplyToSingle = async (applicationReply: string) => {
-    const result = await repplySingleApplication(job.applicationId, applicationReply);
 
-    console.log('handleSubmitRepplyToAll', result);
+    return await repplySingleApplication(job.applicationId, applicationReply);
+
   };
 
   return (<>

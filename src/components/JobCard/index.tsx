@@ -52,9 +52,9 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
   };
 
   const handleSubmitRepplyToAll = async (applicationReply: string) => {
-    const result = await repplyAllApplications(applicationReply, job.id);
 
-    console.log('handleSubmitRepplyToAll', result);
+    return await repplyAllApplications(applicationReply, job.id);
+
   };
 
   return (
