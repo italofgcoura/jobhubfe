@@ -27,8 +27,9 @@ export default () => {
         :
         <ListJobs
           errorLoading={error}
-          jobs={companyJobs}
+          listItems={companyJobs}
           isCompanyRegisteredJobs
+          jobCard
         />
       }
     </PageWithTitleContainer>

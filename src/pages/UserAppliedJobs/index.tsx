@@ -48,19 +48,17 @@ export default () => {
     <Spinner size={80} centered />
   </Modal>);
 
-  // if (appliedJobs.length === 0) return <h1>Você ainda não se candidatou a nenhuma vaga...</h1>;
-
   return (
     <PageWithTitleContainer>
 
       {(appliedJobs.length === 0) ?
-
         <NotFound message='Você ainda não se candidatou a nenhuma vaga...' />
         :
         <ListJobs
           errorLoading={errorLoadingAppliedJobs}
-          jobs={appliedJobs}
+          listItems={appliedJobs}
           appliedPage
+          jobCard
         />
       }
     </PageWithTitleContainer>

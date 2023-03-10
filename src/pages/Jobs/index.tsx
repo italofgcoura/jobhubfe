@@ -52,7 +52,8 @@ const Login: React.FC<ILogin> = () => {
         :
         <ListJobs
           errorLoading={errorLoadingJobs}
-          jobs={jobs}
+          listItems={jobs}
+          jobCard
         />
       }
     </PageWithTitleContainer>

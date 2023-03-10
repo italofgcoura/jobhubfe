@@ -24,9 +24,11 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
   background-color: ${({ theme }) => theme.colors.GRAY_TRANSLUCID};
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);

@@ -50,7 +50,6 @@ export const MenuContainer = styled.ul`
       }
     }
   }
-
 `;
 
 export const UserSalutation = styled.h3`

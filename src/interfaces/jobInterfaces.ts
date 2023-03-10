@@ -44,10 +44,11 @@ interface IJobContext {
 }
 
 interface IListJobs {
-  errorLoading: boolean,
-  jobs: IJobs,
+  errorLoading?: boolean,
+  listItems: any,
   appliedPage?: boolean,
-  isCompanyRegisteredJobs?: boolean
+  isCompanyRegisteredJobs?: boolean,
+  jobCard?: boolean
 }
 
 export type { IJobs, IProps, IJobContext, IJob, IListJobs };

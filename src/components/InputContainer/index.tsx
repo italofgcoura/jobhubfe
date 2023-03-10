@@ -104,6 +104,7 @@ export default ({ handleInputChange, name, type, labelName, value, style, size, 
             readOnly={handleInputChange === undefined}
             style={{ height: '100px', resize: 'none' }}
             disabled={disabled}
+            maxLength={500}
           />
           <label style={{
             bottom: '-15px', top: 'unset', fontSize: '10px', right: 0, left: 'unset'

@@ -106,7 +106,7 @@ export default () => {
             <p>{jobDetails.companyRepply}</p>
           </div>}
 
-          {!userData.isCompany &&
+          {(!userData.isCompany && isAuthenticated) &&
             <div
               style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}
             >

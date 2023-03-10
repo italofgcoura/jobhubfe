@@ -27,22 +27,11 @@ const applyForJobRequest = async (jobId: string) => {
 };
 
 
-
-
-
-
-
-
 const usersByJobRequest = async (jobId: any) => {
   const result = await api.get('/users-by-job', { params: { jobId } });
 
   return result.data;
 };
-
-
-
-
-
 
 const userAppliedJobsRequest = async () => {
   const result = await api.get('/user-applied-jobs');
@@ -56,9 +45,18 @@ const companyRegisteredJobsRequest = async () => {
   return result.data;
 };
 
+const repplyAllApplications = async (applicationReply: string, jobId: string) => {
+  const result = await api.patch('/all-applications-repply', { applicationReply, jobId });
 
+  return result;
+};
 
+const repplySingleApplication = async (applicationId: string, applicationReply: string) => {
+  const result = await api.patch('/single-application-repply',
+    { applicationId, applicationReply });
 
+  return result;
+};
 
 // const getNotificationsRequest = async () => {
 //   const result = await api.get('/notifications');
@@ -84,5 +82,6 @@ const companyRegisteredJobsRequest = async () => {
 export {
   getJobsRequest, applyForJobRequest, userAppliedJobsRequest,
   companyRegisteredJobsRequest, companyRegisteredNewJobRequest,
-  usersByJobRequest, jobDetailsRequest
+  usersByJobRequest, jobDetailsRequest, repplyAllApplications,
+  repplySingleApplication
 };
