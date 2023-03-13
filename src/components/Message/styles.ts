@@ -14,8 +14,8 @@ to{
 `;
 
 export const Message = styled.p<iMessage>`
-  color: ${({ success, theme }) => success ? theme.colors.GREEN[900] : theme.colors.RED[900]};
-  margin-top: 32px;
+  color: ${({ success, theme }) => success ? theme.colors.GREEN[900] : theme.colors.RED[900]} !important;
+  margin-top: 32px !important;
   display: flex;
   align-items: center;
   gap: 8px;

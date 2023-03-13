@@ -48,7 +48,8 @@ interface IListJobs {
   listItems: any,
   appliedPage?: boolean,
   isCompanyRegisteredJobs?: boolean,
-  jobCard?: boolean
+  jobCard?: boolean,
+  selectedJobId?: string
 }
 
 export type { IJobs, IProps, IJobContext, IJob, IListJobs };

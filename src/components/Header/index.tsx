@@ -12,6 +12,7 @@ import { JobContext } from '../../context/job/jobContext';
 import SvgIcon from '../SvgIcon';
 
 import { useTheme } from 'styled-components';
+import { listUserNotifications } from '../../requests/notification';
 
 export default () => {
   const { handleLogout, isAuthenticated } = useContext(AuthContext);
@@ -42,6 +43,7 @@ export default () => {
 
       if (!isLoaded.current) {
         loadUserData();
+        listUserNotifications();
         isLoaded.current = true;
       }
     }

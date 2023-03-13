@@ -51,9 +51,9 @@ const repplyAllApplications = async (applicationReply: string, jobId: string) =>
   return result;
 };
 
-const repplySingleApplication = async (applicationId: string, applicationReply: string) => {
+const repplySingleApplication = async (applicationId: string, applicationReply: string, userId: string, selectedJobId?: string,) => {
   const result = await api.patch('/single-application-repply',
-    { applicationId, applicationReply });
+    { applicationId, applicationReply, selectedJobId, userId });
 
   return result;
 };

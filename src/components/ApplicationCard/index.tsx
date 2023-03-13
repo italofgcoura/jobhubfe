@@ -3,10 +3,11 @@ import { repplySingleApplication } from '../../requests/job';
 import ReplyModal from '../ReplyModal';
 import { useTheme } from 'styled-components';
 interface iProps {
-  job: any
+  job: any,
+  selectedJobId?: string
 }
 
-export const ApplicationCard = ({ job }: iProps) => {
+export const ApplicationCard = ({ job, selectedJobId }: iProps) => {
 
   const [showRepplyModal, setShowRepplyModal] = useState(false);
 
@@ -18,7 +19,7 @@ export const ApplicationCard = ({ job }: iProps) => {
 
   const handleSubmitRepplyToSingle = async (applicationReply: string) => {
 
-    return await repplySingleApplication(job.applicationId, applicationReply);
+    return await repplySingleApplication(job.applicationId, applicationReply, job.id, selectedJobId,);
 
   };
 

@@ -6,7 +6,7 @@ import { IListJobs } from '../../interfaces/jobInterfaces';
 import { ListContainer } from '../../styles/common';
 
 
-export default ({ errorLoading, listItems, appliedPage, isCompanyRegisteredJobs, jobCard }: IListJobs) => {
+export default ({ errorLoading, listItems, appliedPage, isCompanyRegisteredJobs, jobCard, selectedJobId }: IListJobs) => {
 
   return (
     <ListContainer>
@@ -19,7 +19,7 @@ export default ({ errorLoading, listItems, appliedPage, isCompanyRegisteredJobs,
             )}
           {!jobCard &&
             listItems.map((item: any) =>
-              <ApplicationCard job={item} key={item.id} />
+              <ApplicationCard job={item} key={item.id} selectedJobId={selectedJobId} />
             )
           }
         </>

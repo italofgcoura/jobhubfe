@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -27,6 +27,8 @@ export default () => {
 
   const [loading, setLoading] = useState(true);
 
+  const [selectedJobId, setSelectecJobId] = useState(params.id);
+
   const theme = useTheme();
 
   useEffect(() => {
@@ -34,9 +36,9 @@ export default () => {
     if (params) {
       (async () => {
         try {
-          const temp = await usersByJobRequest(params.id);
-          if (temp) {
-            setUsers(temp);
+          const { users } = await usersByJobRequest(params.id);
+          if (users) {
+            setUsers(users);
           }
         } catch (error) {
           console.log(error);
@@ -57,11 +59,7 @@ export default () => {
   return (
     <PageWithTitleContainer>
 
-      {/* <ListContainer> */}
-
-      <ListJobs listItems={users} />
-
-      {/* </ListContainer> */}
+      <ListJobs listItems={users} selectedJobId={selectedJobId} />
 
     </PageWithTitleContainer>);
 };

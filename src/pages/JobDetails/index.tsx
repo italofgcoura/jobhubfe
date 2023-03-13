@@ -101,7 +101,7 @@ export default () => {
             </li>
           </ul>
 
-          {jobDetails.companyRepply && <div style={{ borderTop: '1px solid red', width: '100%', paddingTop: '8px', marginTop: '8px' }}>
+          {jobDetails.companyRepply && <div style={{ borderTop: `1px solid ${theme.accent}`, width: '100%', paddingTop: '8px', marginTop: '8px' }}>
             <p>Resposta da empresa:</p>
             <p>{jobDetails.companyRepply}</p>
           </div>}
