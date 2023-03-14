@@ -34,7 +34,8 @@ const initialValues = {
     userDescription: '',
     userTechnologies: [],
     cnpj: '00000000000000',
-    email: ''
+    email: '',
+    userId: ''
   },
   loadingUserData: true,
   updatingUserData: false,

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { jobDetailsRequest } from '../../requests/job';
 import { AuthContext } from '../../context/auth/authContext';
 import { UserContext } from '../../context/user/userContext';
@@ -28,8 +28,11 @@ export default () => {
   const [successApplied, setSuccessApplied] = useState<boolean | undefined>(undefined);
 
   const params = useParams();
+  const location = useLocation();
 
   const theme = useTheme();
+
+  let previouParamsId = params.id;
 
   const load = async () => {
     // const res = await jobDetailsRequest(params.id);
@@ -39,11 +42,24 @@ export default () => {
     }
   };
 
+  console.log(location.state);
+
   useEffect(() => {
-    if (!selectedJobDetails.id) {
+    if (!selectedJobDetails.id || params.id != previouParamsId || location?.state?.loadDetails) {
       load();
+      previouParamsId = params.id;
     }
-  }, []);
+  }, [params.id, location?.state?.loadDetails]);
+
+  // useEffect(() => {
+
+  // }, [location.state])
+
+  // useEffect(() => {
+
+  //   load();
+
+  // }, [params.id]);
 
   const loading = isAuthenticated ?
     !jobDetails?.companyName || loadingDetails

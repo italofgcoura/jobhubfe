@@ -8,6 +8,7 @@ import { ReactComponent as CheckBox } from '../../assets/check_box_black_24dp.sv
 import { ReactComponent as CheckBoxBlank } from '../../assets/check_box_outline_blank_black_24dp.svg';
 import { ReactComponent as Leave } from '../../assets/exit_to_app_black_24dp.svg';
 import { ReactComponent as Fail } from '../../assets/close_black_24dp.svg';
+import { ReactComponent as NotificationsBell } from '../../assets/notifications_black_24dp.svg';
 
 const iconDictionary = {
   check: Check,
@@ -19,7 +20,8 @@ const iconDictionary = {
   checkBox: CheckBox,
   checkBoxBlank: CheckBoxBlank,
   leave: Leave,
-  fail: Fail
+  fail: Fail,
+  notificationsBell: NotificationsBell
 };
 
 export type IconSource = keyof typeof iconDictionary;

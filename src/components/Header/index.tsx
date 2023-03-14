@@ -12,7 +12,8 @@ import { JobContext } from '../../context/job/jobContext';
 import SvgIcon from '../SvgIcon';
 
 import { useTheme } from 'styled-components';
-import { listUserNotifications } from '../../requests/notification';
+
+import Notifications from '../Notifications';
 
 export default () => {
   const { handleLogout, isAuthenticated } = useContext(AuthContext);
@@ -23,6 +24,8 @@ export default () => {
   const { resetStates } = useContext(JobContext);
 
   const { selectedTheme, handleToggleTheme } = useContext(ThemeContext);
+
+
 
   const navigate = useNavigate();
 
@@ -38,12 +41,18 @@ export default () => {
     navigate('/');
   };
 
+  const loadUser = async () => {
+
+    await loadUserData();
+
+  };
+
+
   useEffect(() => {
     if (isAuthenticated) {
 
       if (!isLoaded.current) {
-        loadUserData();
-        listUserNotifications();
+        loadUser();
         isLoaded.current = true;
       }
     }
@@ -89,6 +98,8 @@ export default () => {
               <SvgIcon source='leave' color={theme.text} />
               <span>sair</span>
             </LoginButton>
+
+            <Notifications theme={theme} />
 
           </>}
           {!isAuthenticated && <li><NavLink end to='/'>login</NavLink></li>}

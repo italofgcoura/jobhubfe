@@ -30,7 +30,7 @@ interface IUserData {
   userDescription: string,
   userTechnologies: ICategorie[],
   cnpj: string,
-  userId?: string
+  userId: string
 }
 
 type IUsers = Array<IUserData>
@@ -40,7 +40,7 @@ type ICategories = Array<ICategorie>
 interface IUserContext {
   user: IUser,
   loadUser: () => void,
-  loadUserData: () => void,
+  loadUserData: () => Promise<void>,
   updateUserData: (updatedUserData: IUserData) => void,
   loadingHome: boolean,
   homeError: boolean,
