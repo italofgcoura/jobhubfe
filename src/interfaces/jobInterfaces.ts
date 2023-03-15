@@ -38,7 +38,7 @@ interface IJobContext {
   loadCompanyRegisteredJobs: () => void,
   loading: boolean,
   error: boolean,
-  reloadJobs: () => void,
+  reloadJobs: () => Promise<void>,
   selectedJobDetails: IJob,
   handleSelectJob: (job: IJob) => void
 }

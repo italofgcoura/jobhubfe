@@ -7,7 +7,9 @@ import socketIo from 'socket.io-client';
 
 import { UserContext } from '../../context/user/userContext';
 
-import { listUserNotifications } from '../../requests/notification';
+import { JobContext } from '../../context/job/jobContext';
+
+import { listUserNotifications, markNewNotificationAsRead, markNotificationAsRead } from '../../requests/notification';
 
 interface iProps {
   theme: DefaultTheme,
@@ -25,14 +27,26 @@ export default ({ theme }: iProps) => {
 
   const { userData } = useContext(UserContext);
 
+  const { reloadJobs } = useContext(JobContext);
+
   const [userNotifications, setUserNotifications] = useState([]);
+
+  const [newNotification, setNewNotification] = useState(false);
+
 
   const isLoaded = useRef(false);
 
   const loadUserNotifications = async () => {
     try {
       const res = await listUserNotifications();
-      handleAddUserNotifications(res);
+      if (res.notifications.length > 0) {
+        setUserNotifications(res.notifications);
+      }
+
+      if (res.newNotification === true) {
+        console.log('res.newNotification', res.newNotification);
+        setNewNotification(res.newNotification);
+      }
     } catch (error) {
       console.log('Error loading user notifications', error);
     }
@@ -48,27 +62,46 @@ export default ({ theme }: iProps) => {
 
   const handleAddUserNotifications = (notification: any) => {
     setUserNotifications(prevState => prevState.concat(notification));
+    setNewNotification(true);
   };
 
 
 
   useEffect(() => {
-    console.log('socket');
+
     socket.on(userData?.userId, handleAddUserNotifications);
 
-    //   (notification) => {
-    //   console.log('nova notificação', notification);
-    //   handleAddUserNotifications(notification);
-    // });
-
     return () => { socket.off(userData?.userId, handleAddUserNotifications); };
+
   }, []);
 
-  console.log('userNotifications', userNotifications);
+  const handleMarkVisualized = async () => {
+    try {
+      await markNewNotificationAsRead();
+    } catch (error) {
+      console.log('Error marking as visualized', error);
+    }
+  };
+
+  const handleBellNotificationsClick = async () => {
+    if (newNotification) {
+      handleMarkVisualized();
+      setNewNotification(false);
+    }
+    setShowNotifications(prevState => !prevState);
+
+    reloadJobs();
+  };
+
+  const handleReadNotification = (notification: any) => {
+    if (!notification.visualized) {
+      markNotificationAsRead(notification.notificationId);
+    }
+  };
 
   return (
     <div
-      onClick={() => setShowNotifications(prevState => !prevState)}
+      onClick={handleBellNotificationsClick}
       style={{ position: 'relative' }}
     >
       <SvgIcon source='notificationsBell'
@@ -77,24 +110,28 @@ export default ({ theme }: iProps) => {
         }
       />
 
-      {userNotifications.length > 0 &&
-        <p style={{ position: 'absolute', color: 'red', bottom: 0, right: 0 }}>       <span >{userNotifications.length}</span></p>
+      {newNotification &&
+        <p style={{
+          position: 'absolute', color: 'red',
+          bottom: 5, right: -2, fontSize: 12, padding: 2, backgroundColor: theme.text, borderRadius: '50%',
+          width: 10, height: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'
+        }}>       <span >{userNotifications.filter((i: any) => !i.visualized).length}</span></p>
       }
       {
         showNotifications &&
         <div style={{
           position: 'absolute', top: '100%',
           right: 0, backgroundColor: '#ffffff',
-          width: '250px'
+          width: '500px'
         }}>
           <div>
-            {userNotifications.map((notification: any) => <>
+            {userNotifications.map((notification: any) => <div style={{ borderBottom: '1px solid red' }}>
               <p key={notification.notificationId}>{notification?.notificationText}</p>
 
               <Link to={`/vagas/detalhes/${notification.jobId}`} state={{ loadDetails: true }}
-
+                onClick={() => handleReadNotification(notification)}
               >clique aqui para visualizar</Link>
-            </>
+            </div>
             )}
           </div>
         </div>
