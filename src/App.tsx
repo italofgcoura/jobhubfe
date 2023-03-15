@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom';
 import { AuthProvider } from './context/auth/authContext';
 import { UserProvider } from './context/user/userContext';
 import { JobProvider } from './context/job/jobContext';
+import { LanguageProvider } from './context/language';
 
 import { ThemeProvider } from 'styled-components';
 
@@ -46,14 +47,16 @@ function App() {
     <ThemeContext.Provider value={values}>
       <ThemeProvider theme={currentTheme}>
         <AuthProvider>
-          <UserProvider>
-            <JobProvider>
-              <HashRouter >
-                <GlobalStyle />
-                <Pages />
-              </HashRouter>
-            </JobProvider>
-          </UserProvider>
+          <LanguageProvider>
+            <UserProvider>
+              <JobProvider>
+                <HashRouter >
+                  <GlobalStyle />
+                  <Pages />
+                </HashRouter>
+              </JobProvider>
+            </UserProvider>
+          </LanguageProvider>
         </AuthProvider>
       </ThemeProvider>
     </ThemeContext.Provider>

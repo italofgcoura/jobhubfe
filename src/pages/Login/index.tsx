@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../context/auth/authContext';
+import { LanguageContext } from '../../context/language';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -21,6 +22,8 @@ import { useTheme } from 'styled-components';
 const Login = () => {
 
   const { loginError, handleLoginError, handleLogin, isAuthenticated, isLoginIn, handleFederatedLogin, loading } = useContext(AuthContext);
+
+  const { currentLanguage } = useContext(LanguageContext);
 
   const [userLoginData, setUserLoginData] = useState({
     email: '',
@@ -70,7 +73,7 @@ const Login = () => {
 
         <button type='submit'
           disabled={!userLoginData.email || !userLoginData.password || isLoginIn}
-        >Login
+        >{currentLanguage.LOGIN}
           {(isLoginIn || loading) &&
             <Spinner size={10} />
           }

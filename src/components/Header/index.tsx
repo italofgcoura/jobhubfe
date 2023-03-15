@@ -8,6 +8,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { Header, MenuContainer, HeaderContainer, UserSalutation, LoginButton, ThemeSelector } from './styles';
 
 import { JobContext } from '../../context/job/jobContext';
+import { LanguageContext } from '../../context/language';
 
 import SvgIcon from '../SvgIcon';
 
@@ -17,6 +18,7 @@ import Notifications from '../Notifications';
 
 export default () => {
   const { handleLogout, isAuthenticated } = useContext(AuthContext);
+  const { handleChangeLanguage, currentLanguage, language } = useContext(LanguageContext);
 
   const { loadUserData, userData, loadingHome, loadingUserData,
     isCompany, resetUser, homeError } = useContext(UserContext);
@@ -76,7 +78,7 @@ export default () => {
 
         <Link to='/vagas'
           style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column' }}>
-          {isAuthenticated && <UserSalutation>Olá, {userData.name}</UserSalutation>}
+          {isAuthenticated && <UserSalutation>{currentLanguage.SALUTATION}, {userData.name}</UserSalutation>}
         </Link>
         <MenuContainer>
           <li><NavLink end to='/vagas'>home</NavLink></li>
@@ -107,6 +109,9 @@ export default () => {
           <ThemeSelector onClick={handleToggleTheme}>
             {selectedTheme === 'dark' ? '☀️' : '🌙'}
           </ThemeSelector>
+          <button onClick={handleChangeLanguage} style={{width: 30}}>
+            {language === 'portuguese' ? 'EN' : 'PT'}
+          </button>
 
         </MenuContainer>
       </HeaderContainer>

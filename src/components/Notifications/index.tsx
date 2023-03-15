@@ -29,7 +29,7 @@ export default ({ theme }: iProps) => {
 
   const { reloadJobs } = useContext(JobContext);
 
-  const [userNotifications, setUserNotifications] = useState([]);
+  const [userNotifications, setUserNotifications] = useState<any>([]);
 
   const [newNotification, setNewNotification] = useState(false);
 
@@ -61,7 +61,24 @@ export default ({ theme }: iProps) => {
 
 
   const handleAddUserNotifications = (notification: any) => {
-    setUserNotifications(prevState => prevState.concat(notification));
+
+
+    // const isNewNotification = userNotifications.find((item: any) => { return item.notificationId === notification.notificationId; });
+
+    // // console.log('isNewNotification', notification);
+    // if (!isNewNotification) {
+    //   const updateNotifications = userNotifications.map((item: any) => {
+    //     if (item.notificationId === notification.id) {
+    //       return { ...item, notificationText: notification.notificationText };
+    //     }
+    //     return item;
+    //   });
+    //   console.log('updateNotifications', updateNotifications);
+    //   setUserNotifications(updateNotifications);
+    // } else {
+
+    // }
+    setUserNotifications((prevState: any) => prevState.filter((item: any) => item.notificationId !== notification.notificationId).concat(notification));
     setNewNotification(true);
   };
 
@@ -70,6 +87,11 @@ export default ({ theme }: iProps) => {
   useEffect(() => {
 
     socket.on(userData?.userId, handleAddUserNotifications);
+
+    // socket.on(userData?.userId, function (notification: string) {
+
+    //   handleAddUserNotifications(notification, userNotifications);
+    // });
 
     return () => { socket.off(userData?.userId, handleAddUserNotifications); };
 
@@ -89,13 +111,12 @@ export default ({ theme }: iProps) => {
       setNewNotification(false);
     }
     setShowNotifications(prevState => !prevState);
-
-    reloadJobs();
   };
 
   const handleReadNotification = (notification: any) => {
     if (!notification.visualized) {
       markNotificationAsRead(notification.notificationId);
+      reloadJobs();
     }
   };
 

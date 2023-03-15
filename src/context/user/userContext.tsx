@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { createContext, useContext, useState, useMemo } from 'react';
 
-import { IProps, IUser, IUserContext, INotifications, IUserData, ICategories } from '../../interfaces/userInterfaces';
+import { IProps, IUser, IUserContext, INotifications, IUserData, } from '../../interfaces/userInterfaces';
 
 import makeRequest from '../../utils/makeRequest';
 
@@ -12,7 +12,7 @@ import {
   createNewUserRequest
 } from '../../requests/user';
 
-// import { listCategories } from '../../requests/categorie';
+import { LanguageContext } from '../language';
 
 import initialValues from './initialValues';
 
@@ -25,13 +25,13 @@ const UserContext = createContext<IUserContext>(initial as IUserContext);
 
 const UserProvider = ({ children }: IProps) => {
 
+  const { handleChangeLanguage } = useContext(LanguageContext);
+
   const [user, setUser] = useState<IUser>(initialValues.user);
 
   const [userData, setUserData] = useState<IUserData>(initialValues.userData);
 
   const [loadingHome, setIsLoadingHome] = useState(initialValues.loadingHome);
-
-  // const [categories, setCategories] = useState<ICategories>(initialValues.categories);
 
   const [loadingUserData, setIsLoadingUserData] = useState(initialValues.loadingUserData);
 
@@ -93,6 +93,7 @@ const UserProvider = ({ children }: IProps) => {
         setIsAdmin(true);
       }
 
+      handleChangeLanguage();
       setUserData(resUserData);
     }
 
