@@ -35,7 +35,7 @@ export default () => {
   let previouParamsId = params.id;
 
   const load = async () => {
-    // const res = await jobDetailsRequest(params.id);
+
     const res: IJob = await makeRequest(jobDetailsRequest, setError, setLoadingDetails, params.id);
     if (res) {
       setJobDetails(res);
@@ -49,17 +49,7 @@ export default () => {
       load();
       previouParamsId = params.id;
     }
-  }, [params.id, location?.state?.loadDetails]);
-
-  // useEffect(() => {
-
-  // }, [location.state])
-
-  // useEffect(() => {
-
-  //   load();
-
-  // }, [params.id]);
+  }, [params.id, location?.state]);
 
   const loading = isAuthenticated ?
     !jobDetails?.companyName || loadingDetails
