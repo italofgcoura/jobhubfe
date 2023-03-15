@@ -23,7 +23,7 @@ const Login = () => {
 
   const { loginError, handleLoginError, handleLogin, isAuthenticated, isLoginIn, handleFederatedLogin, loading } = useContext(AuthContext);
 
-  const { currentLanguage } = useContext(LanguageContext);
+  const { currentLibrary } = useContext(LanguageContext);
 
   const [userLoginData, setUserLoginData] = useState({
     email: '',
@@ -73,7 +73,7 @@ const Login = () => {
 
         <button type='submit'
           disabled={!userLoginData.email || !userLoginData.password || isLoginIn}
-        >{currentLanguage.LOGIN}
+        >{currentLibrary.LOGIN}
           {(isLoginIn || loading) &&
             <Spinner size={10} />
           }

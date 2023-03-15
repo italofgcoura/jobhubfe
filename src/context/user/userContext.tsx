@@ -12,7 +12,7 @@ import {
   createNewUserRequest
 } from '../../requests/user';
 
-import { LanguageContext } from '../language';
+// import { LanguageContext } from '../language';
 
 import initialValues from './initialValues';
 
@@ -25,7 +25,7 @@ const UserContext = createContext<IUserContext>(initial as IUserContext);
 
 const UserProvider = ({ children }: IProps) => {
 
-  const { handleChangeLanguage } = useContext(LanguageContext);
+  // const { handleChangeLanguage } = useContext(LanguageContext);
 
   const [user, setUser] = useState<IUser>(initialValues.user);
 
@@ -83,8 +83,6 @@ const UserProvider = ({ children }: IProps) => {
 
     const resUserData: IUserData = await makeRequest(getUserDataRequest, setHomeError, setIsLoadingUserData);
 
-    // const categories: ICategories = await makeRequest(listCategories, setHomeError, setIsLoadingUserData);
-
     if (resUserData) {
       if (resUserData.isCompany) {
         setIsCompany(true);
@@ -93,13 +91,9 @@ const UserProvider = ({ children }: IProps) => {
         setIsAdmin(true);
       }
 
-      handleChangeLanguage();
+      // handleChangeLanguage();
       setUserData(resUserData);
     }
-
-    // if (categories) {
-    //   setCategories(categories);
-    // }
 
   };
 
@@ -151,7 +145,6 @@ const UserProvider = ({ children }: IProps) => {
     userData,
     loadingUserData,
     updateUserData,
-    // categories,
     updatingUserData,
     isAdmin,
     isCompany,

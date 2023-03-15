@@ -1,5 +1,10 @@
 export default {
   LOGIN: 'entrar',
   LOGOUT: 'sair',
-  SALUTATION: 'Olá'
+  SALUTATION: 'olá',
+  HOME: 'início',
+  USERPROFILE: 'meu perfil',
+  MYAPPLICATIONS: 'minhas candidaturas',
+  REGISTERNEWJOB: 'cadastraR nova vaga',
+  MYREGISTEREDJOBS: 'minhas vagas cadastradas'
 };

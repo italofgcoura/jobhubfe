@@ -42,8 +42,6 @@ export default () => {
     }
   };
 
-  console.log(location.state);
-
   useEffect(() => {
     if (!selectedJobDetails.id || params.id != previouParamsId || location?.state?.loadDetails) {
       load();

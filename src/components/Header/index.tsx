@@ -15,10 +15,12 @@ import SvgIcon from '../SvgIcon';
 import { useTheme } from 'styled-components';
 
 import Notifications from '../Notifications';
+import Modal from '../Modal';
+import Spinner from '../Spinner';
 
 export default () => {
   const { handleLogout, isAuthenticated } = useContext(AuthContext);
-  const { handleChangeLanguage, currentLanguage, language } = useContext(LanguageContext);
+  const { handleChangeLanguage, currentLibrary, language, loadingNewLanguage } = useContext(LanguageContext);
 
   const { loadUserData, userData, loadingHome, loadingUserData,
     isCompany, resetUser, homeError } = useContext(UserContext);
@@ -26,8 +28,6 @@ export default () => {
   const { resetStates } = useContext(JobContext);
 
   const { selectedTheme, handleToggleTheme } = useContext(ThemeContext);
-
-
 
   const navigate = useNavigate();
 
@@ -75,41 +75,45 @@ export default () => {
   return (
     <Header>
       <HeaderContainer>
-
+        {loadingNewLanguage && <Modal><Spinner size={84} centered /></Modal>}
         <Link to='/vagas'
           style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start', flexDirection: 'column' }}>
-          {isAuthenticated && <UserSalutation>{currentLanguage.SALUTATION}, {userData.name}</UserSalutation>}
+          {isAuthenticated && <UserSalutation>{currentLibrary.SALUTATION}, {userData.name}</UserSalutation>}
         </Link>
         <MenuContainer>
-          <li><NavLink end to='/vagas'>home</NavLink></li>
+          <li><NavLink end to='/vagas'>{currentLibrary.HOME}</NavLink></li>
 
           {isAuthenticated && <>
-            <li><NavLink end to='/meu-perfil'>meu perfil</NavLink></li>
+            <li><NavLink end to='/meu-perfil'>{currentLibrary.USERPROFILE}</NavLink></li>
             {isCompany &&
               <>
-                <li><NavLink end to='/vagas/cadastro-vaga'>cadastrar nova vaga</NavLink></li>
+                <li><NavLink end to='/vagas/cadastro-vaga'>{currentLibrary.REGISTERNEWJOB}</NavLink></li>
 
-                <li><NavLink end to='/vagas/minhas-vagas-cadastradas'>minhas vagas cadastradas</NavLink></li>
+                <li><NavLink end to='/vagas/minhas-vagas-cadastradas'>{currentLibrary.MYREGISTEREDJOBS}</NavLink></li>
               </>
             }
             {!isCompany &&
-              <li><NavLink end to='/vagas/minhas-candidaturas'>minhas candidaturas</NavLink></li>
+              <li><NavLink end to='/vagas/minhas-candidaturas'>
+                {currentLibrary.MYAPPLICATIONS}
+              </NavLink></li>
             }
 
             <LoginButton onClick={logout}>
               <SvgIcon source='leave' color={theme.text} />
-              <span>sair</span>
+              <span>{currentLibrary.LOGOUT}</span>
             </LoginButton>
 
             <Notifications theme={theme} />
 
           </>}
-          {!isAuthenticated && <li><NavLink end to='/'>login</NavLink></li>}
+          {!isAuthenticated && <li><NavLink end to='/'>
+            {currentLibrary.LOGIN}
+          </NavLink></li>}
 
           <ThemeSelector onClick={handleToggleTheme}>
             {selectedTheme === 'dark' ? '☀️' : '🌙'}
           </ThemeSelector>
-          <button onClick={handleChangeLanguage} style={{width: 30}}>
+          <button onClick={handleChangeLanguage} style={{ width: 30 }}>
             {language === 'portuguese' ? 'EN' : 'PT'}
           </button>
 
