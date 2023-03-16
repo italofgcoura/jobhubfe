@@ -6,5 +6,6 @@ export default {
   USERPROFILE: 'my profile',
   MYAPPLICATIONS: 'my applications',
   REGISTERNEWJOB: 'register new job',
-  MYREGISTEREDJOBS: 'my registered jobs'
+  MYREGISTEREDJOBS: 'my registered jobs',
+  JOBDETAILS:'job details'
 };

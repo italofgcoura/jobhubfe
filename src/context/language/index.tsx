@@ -11,12 +11,13 @@ interface lib {
   MYAPPLICATIONS: string,
   REGISTERNEWJOB: string,
   MYREGISTEREDJOBS: string,
+  JOBDETAILS: string
 }
 
 interface iProps {
   currentLibrary: lib,
   handleChangeLanguage: () => void,
-  language: string | null,
+  language: string,
   loadingNewLanguage: boolean
 }
 
@@ -30,9 +31,7 @@ const LanguageContext = createContext<iProps>(initial as iProps);
 
 const LanguageProvider = ({ children }: IProps) => {
 
-  const [language, setLanguage] = useState<string | null>(JSON.parse(localStorage.getItem('language') ?? window.navigator.language ?? 'pt-BR'));
-
-  console.log(window.navigator.language);
+  const [language, setLanguage] = useState<string>(localStorage.getItem('language') ?? window.navigator.language ?? 'pt-BR');
 
   const [loadingNewLanguage, setLoadingNewLanguage] = useState(true);
 
@@ -42,15 +41,16 @@ const LanguageProvider = ({ children }: IProps) => {
 
     setLoadingNewLanguage(true);
 
-    setLanguage((prevState) => (prevState === 'pt-BR' ? 'english' : 'pt-BR'));
-
-    setTimeout(() => { setLoadingNewLanguage(false); }, 1000);
+    setTimeout(() => {
+      setLanguage((prevState) => (prevState === 'pt-BR' ? 'english' : 'pt-BR'));
+      setLoadingNewLanguage(false);
+    }, 500);
 
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('language', JSON.stringify(language));
-    setTimeout(() => { setLoadingNewLanguage(false); }, 1000);
+    localStorage.setItem('language', language);
+    setLoadingNewLanguage(false);
   }, [language]);
 
 

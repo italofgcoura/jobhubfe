@@ -114,7 +114,7 @@ export default () => {
             {selectedTheme === 'dark' ? '☀️' : '🌙'}
           </ThemeSelector>
           <button onClick={handleChangeLanguage} style={{ width: 30 }}>
-            {language === 'portuguese' ? 'EN' : 'PT'}
+            {language === 'pt-BR' ? 'EN' : 'PT'}
           </button>
 
         </MenuContainer>

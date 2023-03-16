@@ -6,5 +6,6 @@ export default {
   USERPROFILE: 'meu perfil',
   MYAPPLICATIONS: 'minhas candidaturas',
   REGISTERNEWJOB: 'cadastraR nova vaga',
-  MYREGISTEREDJOBS: 'minhas vagas cadastradas'
+  MYREGISTEREDJOBS: 'minhas vagas cadastradas',
+  JOBDETAILS:'dados da vaga'
 };

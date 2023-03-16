@@ -99,7 +99,8 @@ const RegisterNewJob = () => {
             name={'wage'}
             type={'text'}
             labelName={'Salário'}
-            value={newJobData.wage}
+            // value={newJobData.wage}
+            value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(newJobData.wage))}
           />
 
           <InputContainer

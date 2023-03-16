@@ -2,9 +2,10 @@
 import { useContext, useState } from 'react';
 
 import { JobContext } from '../../context/job/jobContext';
-
 import { UserContext } from '../../context/user/userContext';
 import { AuthContext } from '../../context/auth/authContext';
+import { LanguageContext } from '../../context/language';
+
 import { IJob } from '../../interfaces/jobInterfaces';
 
 import { Link } from 'react-router-dom';
@@ -38,6 +39,8 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
   const { isCompany, userData } = useContext(UserContext);
 
   const { isAuthenticated } = useContext(AuthContext);
+
+  const { currentLibrary } = useContext(LanguageContext);
 
   const [showRepplyModal, setShowRepplyModal] = useState(false);
 
@@ -158,7 +161,7 @@ export default ({ job, appliedPage, isCompanyRegisteredJobs }: IJobCard) => {
 
         <Button onClick={() => handleSelectJob(job)}>
           <Link to={`/vagas/detalhes/${job.id}`} className='actionButton'>
-            Visualizar todos dados da vaga
+            {currentLibrary.JOBDETAILS}
           </Link>
         </Button>
 
